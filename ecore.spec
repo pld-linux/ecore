@@ -1,15 +1,14 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.0.0
-#%define _pre	pre7
-%define	_snap	20050106
+Version:	0.9.9
+%define	_snap	20050329
 Release:	0.%{_snap}.0.1
 License:	BSD
 Group:		X11/Libraries
 #Source0:	http://dl.sourceforge.net/enlightenment/%{name}-%{version}_%{_pre}.tar.gz
-Source0:	ftp://ftp.sparky.homelinux.org/pub/e17/%{name}-%{version}-%{_snap}.tar.gz
-# Source0-md5:	97ca7567fcaeb72cae779d08f8c0e527
+Source0:	ftp://ftp.sparky.homelinux.org/pub/e17/%{name}-%{_snap}.tar.gz
+# Source0-md5:	6d27d042591ab19c4877b6f1355756d1
 URL:		http://enlightenment.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -63,11 +62,26 @@ Statyczne biblioteki Ecore.
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-%configure
+%configure \
+	--enable-ecore-txt	\
+	--enable-ecore-x	\
+	--enable-ecore-job	\
+	--enable-ecore-fb	\
+	--enable-ecore-evas	\
+	--enable-ecore-evas-gl	\
+	--enable-ecore-evas-fb	\
+	--enable-ecore-evas-buffer \
+	--enable-ecore-con	\
+	--enable-openssl	\
+	--enable-ecore-ipc	\
+	--enable-ecore-config	\
+	--enable-ecore-file	\
+	--enable-pthreads
+
 %{__make}
 
 %install
