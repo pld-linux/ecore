@@ -1,4 +1,5 @@
 Summary:	Enlightened Core X interface library
+Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
 Version:	1.0.0
 #%define _pre	pre7
@@ -23,23 +24,38 @@ Xdnd, general X stuff, event loops, timeouts and idle handlers fast,
 optimized, and convenient. It's a separate library so anyone can make
 use of the work put into Ecore to make this job easy for applications.
 
+%description -l pl
+Ecore to warstwa abstracji zdarzeñ/X, która powoduje, ¿e dokonywanie
+zaznaczeñ, Xdnd, ogólne operacje X, pêtle zdarzeñ, obs³uga timeoutów i
+bezczynno¶ci s± szybkie, zoptymalizowane i wygodne. Jest to wydzielona
+biblioteka, wiêc ka¿dy mo¿e skorzystaæ z pracy w³o¿onej w Ecore do
+u³atwienia swojej pracy przy aplikacjach.
+
 %package devel
-Summary:	Ecore headers and development libraries
+Summary:	Ecore header files
+Summary(pl):	Pliki nag³ówkowe Ecore
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	evas-devel
 Requires:	openssl-devel
 
 %description devel
 Ecore development files.
 
+%description devel -l pl
+Pliki programistyczne Ecore.
+
 %package static
-Summary:	Static libraries
+Summary:	Static Ecore libraries
+Summary(pl):	Statyczne biblioteki Ecore
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
-Static libraries.
+Static Ecore libraries.
+
+%description static -l pl
+Statyczne biblioteki Ecore.
 
 %prep
 #%%setup -q -n %{name}-%{version}_%{_pre}
@@ -68,8 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING* README*
-%attr(755,root,root) %{_libdir}/libecore*.so.*
 %attr(755,root,root) %{_bindir}/ecore_*
+%attr(755,root,root) %{_libdir}/libecore*.so.*.*.*
 %{_datadir}/%{name}
 
 %files devel
