@@ -1,14 +1,14 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9
-%define	_snap	20050329
+Version:	0.9.9.010
+%define	_snap	20050707
 Release:	0.%{_snap}.0.1
 License:	BSD
 Group:		X11/Libraries
 #Source0:	http://dl.sourceforge.net/enlightenment/%{name}-%{version}_%{_pre}.tar.gz
-Source0:	ftp://ftp.sparky.homelinux.org/pub/e17/%{name}-%{_snap}.tar.gz
-# Source0-md5:	6d27d042591ab19c4877b6f1355756d1
+Source0:	ftp://ftp.sparky.homelinux.org/snaps/enli/e17/libs/%{name}-%{_snap}.tar.gz
+# Source0-md5:	dda96a94cab2fd5d485757b76f0c4775
 URL:		http://enlightenment.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -78,6 +78,7 @@ Statyczne biblioteki Ecore.
 	--enable-ecore-con	\
 	--enable-openssl	\
 	--enable-ecore-ipc	\
+	--enable-ecore-dbus	\
 	--enable-ecore-config	\
 	--enable-ecore-file	\
 	--enable-pthreads
@@ -97,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING* README*
+%doc AUTHORS COPYING COPYING-PLAIN INSTALL README
 %attr(755,root,root) %{_bindir}/ecore_*
 %attr(755,root,root) %{_libdir}/libecore*.so.*.*.*
 %{_datadir}/%{name}
@@ -107,8 +108,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ecore-config
 %attr(755,root,root) %{_libdir}/libecore*.so
 %{_libdir}/libecore*.la
-%attr(755,root,root) %{_libdir}/ecore_config_ipc_*.so
-%{_libdir}/ecore_config_ipc_*.la
 %{_pkgconfigdir}/ecore.pc
 %{_aclocaldir}/ecore.m4
 %{_includedir}/Ecore*.h
@@ -116,4 +115,3 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libecore*.a
-%{_libdir}/ecore_config_ipc_*.a
