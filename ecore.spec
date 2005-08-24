@@ -1,20 +1,19 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.010
-%define	_snap	20050707
-Release:	0.%{_snap}.0.1
+Version:	0.9.9.013
+Release:	1
 License:	BSD
 Group:		X11/Libraries
-#Source0:	http://dl.sourceforge.net/enlightenment/%{name}-%{version}_%{_pre}.tar.gz
-Source0:	http://sparky.homelinux.org/snaps/enli/e17/libs/%{name}-%{_snap}.tar.gz
-# Source0-md5:	dda96a94cab2fd5d485757b76f0c4775
+Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
+# Source0-md5:	ef3dcedf00e18c6449e744edf4a50c50
 URL:		http://enlightenment.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	evas-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -57,12 +56,22 @@ Static Ecore libraries.
 Statyczne biblioteki Ecore.
 
 %prep
-#%%setup -q -n %{name}-%{version}_%{_pre}
-%setup -q -n %{name}
+%setup -q
+echo 'AC_DEFUN([AC_C___ATTRIBUTE__],
+ [
+  AC_MSG_CHECKING(for __attribute__)
+  AC_CACHE_VAL(ac_cv___attribute__, [
+  AC_TRY_COMPILE([#include <stdlib.h>],
+  [int func(int x); int foo(int x __attribute__ ((unused))) { exit(1); }],
+  ac_cv___attribute__=yes, ac_cv___attribute__=no)])
+  if test "$ac_cv___attribute__" = "yes"; then
+    AC_DEFINE(HAVE___ATTRIBUTE__, 1, [Define to 1 if compiler has __attribute__])
+  fi
+  AC_MSG_RESULT($ac_cv___attribute__)])' > acinclude.m4
 
 %build
 %{__libtoolize}
-%{__aclocal} -I m4
+%{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %{__automake}
