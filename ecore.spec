@@ -7,7 +7,7 @@ License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
 # Source0-md5:	ef3dcedf00e18c6449e744edf4a50c50
-URL:		http://enlightenment.org/
+URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	evas-devel
