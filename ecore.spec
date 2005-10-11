@@ -1,12 +1,13 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.013
+Version:	0.9.9.018
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	ef3dcedf00e18c6449e744edf4a50c50
+# Source0-md5:	1b138060711920ff76808a8ff75d0017
+Patch0:		%{name}-missing_m4.patch
 URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -57,17 +58,7 @@ Statyczne biblioteki Ecore.
 
 %prep
 %setup -q
-echo 'AC_DEFUN([AC_C___ATTRIBUTE__],
- [
-  AC_MSG_CHECKING(for __attribute__)
-  AC_CACHE_VAL(ac_cv___attribute__, [
-  AC_TRY_COMPILE([#include <stdlib.h>],
-  [int func(int x); int foo(int x __attribute__ ((unused))) { exit(1); }],
-  ac_cv___attribute__=yes, ac_cv___attribute__=no)])
-  if test "$ac_cv___attribute__" = "yes"; then
-    AC_DEFINE(HAVE___ATTRIBUTE__, 1, [Define to 1 if compiler has __attribute__])
-  fi
-  AC_MSG_RESULT($ac_cv___attribute__)])' > acinclude.m4
+%patch0 -p1
 
 %build
 %{__libtoolize}
