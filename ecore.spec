@@ -15,6 +15,8 @@ BuildRequires:	evas-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
+Requires:	%{name}-libs = %{version}-%{release}
+Requires:	fonts-TTF-bitstream-vera
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -30,11 +32,22 @@ bezczynno¶ci s± szybkie, zoptymalizowane i wygodne. Jest to wydzielona
 biblioteka, wiêc ka¿dy mo¿e skorzystaæ z pracy w³o¿onej w Ecore do
 u³atwienia swojej pracy przy aplikacjach.
 
+%package libs
+Summary:	Ecore library
+Summary(pl):	Biblioteka ecore
+Group:		X11/Libraries
+
+%description libs
+Ecore library.
+
+%description libs -l pl
+Biblioteka ecore.
+
 %package devel
 Summary:	Ecore header files
 Summary(pl):	Pliki nag³ówkowe Ecore
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
 Requires:	evas-devel
 Requires:	openssl-devel
 
@@ -90,18 +103,28 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+cd $RPM_BUILD_ROOT%{_datadir}/%{name}/fonts
+VERA=$(ls Vera*.ttf)
+for FONT in $VERA; do
+	rm -f $FONT
+	ln -s %{_fontsdir}/TTF/$FONT .
+done
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post libs	-p /sbin/ldconfig
+%postun libs	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING COPYING-PLAIN INSTALL README
 %attr(755,root,root) %{_bindir}/ecore_*
-%attr(755,root,root) %{_libdir}/libecore*.so.*.*.*
 %{_datadir}/%{name}
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore*.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
