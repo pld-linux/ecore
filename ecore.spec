@@ -6,7 +6,7 @@ Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	ae89e91893b02d9d2ad486fa4e63fcee
+# Source0-md5:	e74f68a55ba6f501d090b165a90dd299
 Patch0:		%{name}-missing_m4.patch
 URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
