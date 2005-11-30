@@ -1,12 +1,16 @@
+#
+# Conditional build:
+%bcond_without	static_libs	# don't build static library
+#
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.019
+Version:	0.9.9.020
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	e74f68a55ba6f501d090b165a90dd299
+# Source0-md5:	efda4b953369692587402da12fcd66e8
 Patch0:		%{name}-missing_m4.patch
 URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
@@ -86,6 +90,7 @@ sed -e	's/^@BUILD_ECORE_DIRECTFB_TRUE@/#/'	\
     -i	src/lib/ecore_directfb/Makefile.in	\
 	src/lib/ecore_evas/Makefile.in
 %configure \
+	%{!?with_static_libs:--disable-static} \
 	--enable-ecore-txt	\
 	--enable-ecore-x	\
 	--enable-ecore-job	\
@@ -146,6 +151,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_aclocaldir}/ecore.m4
 %{_includedir}/Ecore*.h
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libecore*.a
+%endif
