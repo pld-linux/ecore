@@ -5,13 +5,13 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.020
+Version:	0.9.9.022
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	efda4b953369692587402da12fcd66e8
-Patch0:		%{name}-missing_m4.patch
+# Source0-md5:	334cf22f033ecb144b77e92455167855
+#Patch0:		%{name}-missing_m4.patch
 URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -23,6 +23,8 @@ BuildRequires:	pkgconfig
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	fonts-TTF-bitstream-vera
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%undefine	__cxx
 
 %description
 Ecore is the event/X abstraction layer that makes doing selections,
@@ -77,14 +79,14 @@ Statyczne biblioteki Ecore.
 
 %prep
 %setup -q
-%patch0 -p1
+#%%patch0 -p1
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
+#%%{__libtoolize}
+#%%{__aclocal}
+#%%{__autoconf}
+#%%{__autoheader}
+#%%{__automake}
 sed -e	's/^@BUILD_ECORE_DIRECTFB_TRUE@/#/'	\
     -e	's/^@BUILD_ECORE_DIRECTFB_FALSE@//'	\
     -i	src/lib/ecore_directfb/Makefile.in	\
