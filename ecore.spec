@@ -5,13 +5,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.023
+Version:	0.9.9.024
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	a12d806bbf687b371cd13743faff382e
-#Patch0:		%{name}-missing_m4.patch
+# Source0-md5:	835d62208a6ca1a8d9a4ef8f8c874136
 URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -20,6 +19,7 @@ BuildRequires:	evas-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
+BuildRequires:	sed >= 4.0
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	fonts-TTF-bitstream-vera
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -79,18 +79,12 @@ Statyczne biblioteki Ecore.
 
 %prep
 %setup -q
-#%%patch0 -p1
+sed -e 's/^@BUILD_ECORE_DIRECTFB_TRUE@/#/'	\
+    -e 's/^@BUILD_ECORE_DIRECTFB_FALSE@//'	\
+    -i src/lib/ecore_directfb/Makefile.in	\
+       src/lib/ecore_evas/Makefile.in
 
 %build
-#%%{__libtoolize}
-#%%{__aclocal}
-#%%{__autoconf}
-#%%{__autoheader}
-#%%{__automake}
-sed -e	's/^@BUILD_ECORE_DIRECTFB_TRUE@/#/'	\
-    -e	's/^@BUILD_ECORE_DIRECTFB_FALSE@//'	\
-    -i	src/lib/ecore_directfb/Makefile.in	\
-	src/lib/ecore_evas/Makefile.in
 %configure \
 	%{!?with_static_libs:--disable-static} \
 	--enable-ecore-txt	\
