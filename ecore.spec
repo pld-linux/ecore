@@ -5,12 +5,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.025
+Version:	0.9.9.026
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	c3a6f4392896defa4a768a13817e38d8
+# Source0-md5:	c9f2eaed941c9cecc4acf5c57132c1cf
 URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
 BuildRequires:	automake
