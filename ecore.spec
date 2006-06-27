@@ -5,12 +5,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.027
+Version:	0.9.9.028
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	399a948e4321f353514163a56ac28e10
+# Source0-md5:	482485968f9a1925318428244116e23e
 URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -19,7 +19,6 @@ BuildRequires:	evas-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
-BuildRequires:	sed >= 4.0
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	fonts-TTF-bitstream-vera
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -79,10 +78,6 @@ Statyczne biblioteki Ecore.
 
 %prep
 %setup -q
-sed -e 's/^@BUILD_ECORE_DIRECTFB_TRUE@/#/'	\
-    -e 's/^@BUILD_ECORE_DIRECTFB_FALSE@//'	\
-    -i src/lib/ecore_directfb/Makefile.in	\
-       src/lib/ecore_evas/Makefile.in
 
 %build
 %configure \
@@ -94,7 +89,7 @@ sed -e 's/^@BUILD_ECORE_DIRECTFB_TRUE@/#/'	\
 	--enable-ecore-evas	\
 	--enable-ecore-evas-gl	\
 	--enable-ecore-evas-xrender \
-	--disable-ecore-evas-dfb	\
+	--enable-ecore-evas-dfb	\
 	--enable-ecore-evas-fb	\
 	--enable-ecore-evas-buffer \
 	--enable-ecore-con	\
