@@ -5,12 +5,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.031
+Version:	0.9.9.032
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	1b89a12e045b2d4034d71da3f6766c62
+# Source0-md5:	275ceadfd5537383dd2f331e02f5ce72
 URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -131,7 +131,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_con.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_config.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_dbus.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_directfb.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_evas.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_fb.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_file.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_ipc.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_job.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_txt.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_x.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
