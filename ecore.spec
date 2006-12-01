@@ -79,6 +79,11 @@ Statyczne biblioteki Ecore.
 %setup -q
 
 %build
+%{__libtoolize}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	%{!?with_static_libs:--disable-static} \
 	--enable-ecore-txt	\
