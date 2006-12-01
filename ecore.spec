@@ -12,6 +12,7 @@ Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
 # Source0-md5:	b2f3ba94aa47a885c77c3ad7a686ee42
 URL:		http://enlightenment.org/Libraries/Ecore/
+BuildRequires:	DirectFB-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	curl-devel
@@ -19,6 +20,12 @@ BuildRequires:	evas-devel
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
+BuildRequires:	xorg-lib-libXScrnSaver-devel
+BuildRequires:	xorg-lib-libXcursor-devel
+BuildRequires:	xorg-lib-libXdamage-devel
+BuildRequires:	xorg-lib-libXinerama-devel
+BuildRequires:	xorg-lib-libXp-devel
+BuildRequires:	xorg-lib-libXrandr-devel
 Obsoletes:	ecore-libs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
