@@ -5,12 +5,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.032
+Version:	0.9.9.036
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	275ceadfd5537383dd2f331e02f5ce72
+# Source0-md5:	b2f3ba94aa47a885c77c3ad7a686ee42
 URL:		http://enlightenment.org/Libraries/Ecore/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -20,7 +20,6 @@ BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	fonts-TTF-bitstream-vera
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %undefine	__cxx
@@ -110,13 +109,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-cd $RPM_BUILD_ROOT%{_datadir}/%{name}/fonts
-VERA=$(ls Vera*.ttf)
-for FONT in $VERA; do
-	rm -f $FONT
-	ln -s %{_fontsdir}/TTF/$FONT .
-done
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -126,8 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING COPYING-PLAIN INSTALL README
-%attr(755,root,root) %{_bindir}/ecore_*
-%{_datadir}/%{name}
+%attr(755,root,root) %{_bindir}/ecore_config
 
 %files libs
 %defattr(644,root,root,755)
@@ -136,6 +127,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libecore_config.so.*.*.*
 %attr(755,root,root) %{_libdir}/libecore_dbus.so.*.*.*
 %attr(755,root,root) %{_libdir}/libecore_directfb.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_desktop.so.*.*.*
 %attr(755,root,root) %{_libdir}/libecore_evas.so.*.*.*
 %attr(755,root,root) %{_libdir}/libecore_fb.so.*.*.*
 %attr(755,root,root) %{_libdir}/libecore_file.so.*.*.*
