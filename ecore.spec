@@ -38,7 +38,7 @@ optimized, and convenient. It's a separate library so anyone can make
 use of the work put into Ecore to make this job easy for applications.
 
 %description -l pl
-Ecore to warstwa abstracji zdarzeñ/X, która powoduje, ¿e dokonywanie
+Ecore to warstwa abstrakcji zdarzeñ/X, która powoduje, ¿e dokonywanie
 zaznaczeñ, Xdnd, ogólne operacje X, pêtle zdarzeñ, obs³uga timeoutów i
 bezczynno¶ci s± szybkie, zoptymalizowane i wygodne. Jest to wydzielona
 biblioteka, wiêc ka¿dy mo¿e skorzystaæ z pracy w³o¿onej w Ecore do
