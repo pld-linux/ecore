@@ -46,6 +46,7 @@ u³atwienia swojej pracy przy aplikacjach.
 
 %package con
 Summary:	Ecore Connection Library
+Summary(pl):	Biblioteka po³±czeñ Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -53,8 +54,12 @@ Conflicts:	ecore-libs
 %description con
 Ecore Connection Library.
 
+%description con -l pl
+Biblioteka po³±czeñ Ecore.
+
 %package config
 Summary:	Ecore Enlightened Property Library
+Summary(pl):	Biblioteka w³a¶ciwo¶ci Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -62,8 +67,12 @@ Conflicts:	ecore-libs
 %description config
 Ecore Enlightened Property Library.
 
+%description config -l pl
+Biblioteka w³a¶ciwo¶ci Ecore.
+
 %package dbus
 Summary:	Ecore DBus Library
+Summary(pl):	Biblioteka Ecore DBus
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -71,8 +80,12 @@ Conflicts:	ecore-libs
 %description dbus
 Ecore DBus Library.
 
+%description dbus -l pl
+Biblioteka Ecore DBus.
+
 %package desktop
 Summary:	Ecore freedesktop.org .desktop, icon, menu parsing Library
+Summary(pl):	Biblioteka przetwarzania plików .desktop, ikon i menu
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -80,8 +93,12 @@ Conflicts:	ecore-libs
 %description desktop
 Ecore freedesktop.org .desktop, icon, menu parsing Library.
 
+%description desktop -l pl
+Biblioteka przetwarzania plików .desktop, ikon i menu.
+
 %package directfb
 Summary:	Ecore frame buffer system functions
+Summary(pl):	Funkcje systemowe framebuffera Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -89,8 +106,12 @@ Conflicts:	ecore-libs
 %description directfb
 Ecore frame buffer system functions.
 
+%description directfb -l pl
+Funkcje systemowe framebuffera Ecore.
+
 %package evas
 Summary:	Ecore Evas Wrapper Library
+Summary(pl):	Biblioteka Ecore Evas Wrapper
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -98,8 +119,12 @@ Conflicts:	ecore-libs
 %description evas
 Ecore Evas Wrapper Library.
 
+%description evas -l pl
+Biblioteka Ecore Evas Wrapper.
+
 %package fb
 Summary:	Ecore frame buffer system functions
+Summary(pl):	Funkcje systemowe framebuffera Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -107,8 +132,12 @@ Conflicts:	ecore-libs
 %description fb
 Ecore frame buffer system functions.
 
+%description fb -l pl
+Funkcje systemowe framebuffera Ecore.
+
 %package file
 Summary:	Ecore File Library
+Summary(pl):	Biblioteka Ecore File
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -116,8 +145,12 @@ Conflicts:	ecore-libs
 %description file
 Ecore File Library.
 
+%description file -l lp
+Biblioteka Ecore File.
+
 %package ipc
 Summary:	Ecore inter-process communication functions
+Summary(pl):	Funkcje komunikacji miêdzyprocesowej Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -125,8 +158,12 @@ Conflicts:	ecore-libs
 %description ipc
 Ecore inter-process communication functions.
 
+%description ipc -l pl
+Funkcje komunikacji miêdzyprocesowej Ecore.
+
 %package job
 Summary:	Ecore job dealing functions
+Summary(pl):	Funkcje obs³ugi zadañ Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -134,8 +171,12 @@ Conflicts:	ecore-libs
 %description job
 Ecore job dealing functions.
 
+%description job -l pl
+Funkcje obs³ugi zadañ Ecore.
+
 %package txt
 Summary:	Ecore text encoding conversion functions
+Summary(pl):	Funkcje konwersji kodowania tekstu Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -143,14 +184,21 @@ Conflicts:	ecore-libs
 %description txt
 Ecore text encoding conversion functions.
 
+%description txt -l pl
+Funkcje konwersji kodowania tekstu Ecore.
+
 %package x
-Summary:	Ecore functions for dealing with the X Windows System
+Summary:	Ecore functions for dealing with the X Window System
+Summary(pl):	Funkcje Ecore do obs³ugi X Window System
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
 
 %description x
-Ecore functions for dealing with the X Windows System.
+Ecore functions for dealing with the X Window System.
+
+%description x -l pl
+Funkcje Ecore do obs³ugi X Window System.
 
 %package devel
 Summary:	Ecore header files
@@ -235,30 +283,30 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
-%post con	-p /sbin/ldconfig
-%postun con	-p /sbin/ldconfig
-%post config	-p /sbin/ldconfig
-%postun config	-p /sbin/ldconfig
-%post dbus	-p /sbin/ldconfig
-%postun dbus	-p /sbin/ldconfig
-%post directfb	-p /sbin/ldconfig
-%postun directfb -p /sbin/ldconfig
-%post desktop	-p /sbin/ldconfig
-%postun desktop	-p /sbin/ldconfig
-%post evas	-p /sbin/ldconfig
-%postun evas	-p /sbin/ldconfig
-%post fb	-p /sbin/ldconfig
-%postun fb	-p /sbin/ldconfig
-%post file	-p /sbin/ldconfig
-%postun file	-p /sbin/ldconfig
-%post ipc	-p /sbin/ldconfig
-%postun ipc	-p /sbin/ldconfig
-%post job	-p /sbin/ldconfig
-%postun job	-p /sbin/ldconfig
-%post txt	-p /sbin/ldconfig
-%postun txt	-p /sbin/ldconfig
-%post x		-p /sbin/ldconfig
-%postun x	-p /sbin/ldconfig
+%post	con	-p /sbin/ldconfig
+%postun	con	-p /sbin/ldconfig
+%post	config	-p /sbin/ldconfig
+%postun	config	-p /sbin/ldconfig
+%post	dbus	-p /sbin/ldconfig
+%postun	dbus	-p /sbin/ldconfig
+%post	directfb -p /sbin/ldconfig
+%postun	directfb -p /sbin/ldconfig
+%post	desktop	-p /sbin/ldconfig
+%postun	desktop	-p /sbin/ldconfig
+%post	evas	-p /sbin/ldconfig
+%postun	evas	-p /sbin/ldconfig
+%post	fb	-p /sbin/ldconfig
+%postun	fb	-p /sbin/ldconfig
+%post	file	-p /sbin/ldconfig
+%postun	file	-p /sbin/ldconfig
+%post	ipc	-p /sbin/ldconfig
+%postun	ipc	-p /sbin/ldconfig
+%post	job	-p /sbin/ldconfig
+%postun	job	-p /sbin/ldconfig
+%post	txt	-p /sbin/ldconfig
+%postun	txt	-p /sbin/ldconfig
+%post	x	-p /sbin/ldconfig
+%postun	x	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
