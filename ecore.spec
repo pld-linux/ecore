@@ -145,7 +145,7 @@ Conflicts:	ecore-libs
 %description file
 Ecore File Library.
 
-%description file -l lp
+%description file -l pl
 Biblioteka Ecore File.
 
 %package ipc
