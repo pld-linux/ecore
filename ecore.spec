@@ -3,7 +3,7 @@
 %bcond_without	static_libs	# don't build static library
 #
 Summary:	Enlightened Core X interface library
-Summary(pl.UTF-8):   Biblioteka interfejsu X Enlightened Core
+Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
 Version:	0.9.9.036
 Release:	2
@@ -46,7 +46,7 @@ ułatwienia swojej pracy przy aplikacjach.
 
 %package con
 Summary:	Ecore Connection Library
-Summary(pl.UTF-8):   Biblioteka połączeń Ecore
+Summary(pl.UTF-8):	Biblioteka połączeń Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -59,7 +59,7 @@ Biblioteka połączeń Ecore.
 
 %package config
 Summary:	Ecore Enlightened Property Library
-Summary(pl.UTF-8):   Biblioteka właściwości Ecore
+Summary(pl.UTF-8):	Biblioteka właściwości Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -72,7 +72,7 @@ Biblioteka właściwości Ecore.
 
 %package dbus
 Summary:	Ecore DBus Library
-Summary(pl.UTF-8):   Biblioteka Ecore DBus
+Summary(pl.UTF-8):	Biblioteka Ecore DBus
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -85,7 +85,7 @@ Biblioteka Ecore DBus.
 
 %package desktop
 Summary:	Ecore freedesktop.org .desktop, icon, menu parsing Library
-Summary(pl.UTF-8):   Biblioteka przetwarzania plików .desktop, ikon i menu
+Summary(pl.UTF-8):	Biblioteka przetwarzania plików .desktop, ikon i menu
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -98,7 +98,7 @@ Biblioteka przetwarzania plików .desktop, ikon i menu.
 
 %package directfb
 Summary:	Ecore frame buffer system functions
-Summary(pl.UTF-8):   Funkcje systemowe framebuffera Ecore
+Summary(pl.UTF-8):	Funkcje systemowe framebuffera Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -111,7 +111,7 @@ Funkcje systemowe framebuffera Ecore.
 
 %package evas
 Summary:	Ecore Evas Wrapper Library
-Summary(pl.UTF-8):   Biblioteka Ecore Evas Wrapper
+Summary(pl.UTF-8):	Biblioteka Ecore Evas Wrapper
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -124,7 +124,7 @@ Biblioteka Ecore Evas Wrapper.
 
 %package fb
 Summary:	Ecore frame buffer system functions
-Summary(pl.UTF-8):   Funkcje systemowe framebuffera Ecore
+Summary(pl.UTF-8):	Funkcje systemowe framebuffera Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -137,7 +137,7 @@ Funkcje systemowe framebuffera Ecore.
 
 %package file
 Summary:	Ecore File Library
-Summary(pl.UTF-8):   Biblioteka Ecore File
+Summary(pl.UTF-8):	Biblioteka Ecore File
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -150,7 +150,7 @@ Biblioteka Ecore File.
 
 %package ipc
 Summary:	Ecore inter-process communication functions
-Summary(pl.UTF-8):   Funkcje komunikacji międzyprocesowej Ecore
+Summary(pl.UTF-8):	Funkcje komunikacji międzyprocesowej Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -163,7 +163,7 @@ Funkcje komunikacji międzyprocesowej Ecore.
 
 %package job
 Summary:	Ecore job dealing functions
-Summary(pl.UTF-8):   Funkcje obsługi zadań Ecore
+Summary(pl.UTF-8):	Funkcje obsługi zadań Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -176,7 +176,7 @@ Funkcje obsługi zadań Ecore.
 
 %package txt
 Summary:	Ecore text encoding conversion functions
-Summary(pl.UTF-8):   Funkcje konwersji kodowania tekstu Ecore
+Summary(pl.UTF-8):	Funkcje konwersji kodowania tekstu Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -189,7 +189,7 @@ Funkcje konwersji kodowania tekstu Ecore.
 
 %package x
 Summary:	Ecore functions for dealing with the X Window System
-Summary(pl.UTF-8):   Funkcje Ecore do obsługi X Window System
+Summary(pl.UTF-8):	Funkcje Ecore do obsługi X Window System
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -202,7 +202,7 @@ Funkcje Ecore do obsługi X Window System.
 
 %package devel
 Summary:	Ecore header files
-Summary(pl.UTF-8):   Pliki nagłówkowe Ecore
+Summary(pl.UTF-8):	Pliki nagłówkowe Ecore
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-con = %{version}-%{release}
@@ -229,7 +229,7 @@ Pliki programistyczne Ecore.
 
 %package static
 Summary:	Static Ecore libraries
-Summary(pl.UTF-8):   Statyczne biblioteki Ecore
+Summary(pl.UTF-8):	Statyczne biblioteki Ecore
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
