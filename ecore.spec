@@ -3,7 +3,7 @@
 %bcond_without	static_libs	# don't build static library
 #
 Summary:	Enlightened Core X interface library
-Summary(pl):	Biblioteka interfejsu X Enlightened Core
+Summary(pl.UTF-8):   Biblioteka interfejsu X Enlightened Core
 Name:		ecore
 Version:	0.9.9.036
 Release:	2
@@ -37,16 +37,16 @@ Xdnd, general X stuff, event loops, timeouts and idle handlers fast,
 optimized, and convenient. It's a separate library so anyone can make
 use of the work put into Ecore to make this job easy for applications.
 
-%description -l pl
-Ecore to warstwa abstrakcji zdarzeÒ/X, ktÛra powoduje, øe dokonywanie
-zaznaczeÒ, Xdnd, ogÛlne operacje X, pÍtle zdarzeÒ, obs≥uga timeoutÛw i
-bezczynno∂ci s± szybkie, zoptymalizowane i wygodne. Jest to wydzielona
-biblioteka, wiÍc kaødy moøe skorzystaÊ z pracy w≥oøonej w Ecore do
-u≥atwienia swojej pracy przy aplikacjach.
+%description -l pl.UTF-8
+Ecore to warstwa abstrakcji zdarze≈Ñ/X, kt√≥ra powoduje, ≈ºe dokonywanie
+zaznacze≈Ñ, Xdnd, og√≥lne operacje X, pƒôtle zdarze≈Ñ, obs≈Çuga timeout√≥w i
+bezczynno≈õci sƒÖ szybkie, zoptymalizowane i wygodne. Jest to wydzielona
+biblioteka, wiƒôc ka≈ºdy mo≈ºe skorzystaƒá z pracy w≈Ço≈ºonej w Ecore do
+u≈Çatwienia swojej pracy przy aplikacjach.
 
 %package con
 Summary:	Ecore Connection Library
-Summary(pl):	Biblioteka po≥±czeÒ Ecore
+Summary(pl.UTF-8):   Biblioteka po≈ÇƒÖcze≈Ñ Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -54,12 +54,12 @@ Conflicts:	ecore-libs
 %description con
 Ecore Connection Library.
 
-%description con -l pl
-Biblioteka po≥±czeÒ Ecore.
+%description con -l pl.UTF-8
+Biblioteka po≈ÇƒÖcze≈Ñ Ecore.
 
 %package config
 Summary:	Ecore Enlightened Property Library
-Summary(pl):	Biblioteka w≥a∂ciwo∂ci Ecore
+Summary(pl.UTF-8):   Biblioteka w≈Ça≈õciwo≈õci Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -67,12 +67,12 @@ Conflicts:	ecore-libs
 %description config
 Ecore Enlightened Property Library.
 
-%description config -l pl
-Biblioteka w≥a∂ciwo∂ci Ecore.
+%description config -l pl.UTF-8
+Biblioteka w≈Ça≈õciwo≈õci Ecore.
 
 %package dbus
 Summary:	Ecore DBus Library
-Summary(pl):	Biblioteka Ecore DBus
+Summary(pl.UTF-8):   Biblioteka Ecore DBus
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -80,12 +80,12 @@ Conflicts:	ecore-libs
 %description dbus
 Ecore DBus Library.
 
-%description dbus -l pl
+%description dbus -l pl.UTF-8
 Biblioteka Ecore DBus.
 
 %package desktop
 Summary:	Ecore freedesktop.org .desktop, icon, menu parsing Library
-Summary(pl):	Biblioteka przetwarzania plikÛw .desktop, ikon i menu
+Summary(pl.UTF-8):   Biblioteka przetwarzania plik√≥w .desktop, ikon i menu
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -93,12 +93,12 @@ Conflicts:	ecore-libs
 %description desktop
 Ecore freedesktop.org .desktop, icon, menu parsing Library.
 
-%description desktop -l pl
-Biblioteka przetwarzania plikÛw .desktop, ikon i menu.
+%description desktop -l pl.UTF-8
+Biblioteka przetwarzania plik√≥w .desktop, ikon i menu.
 
 %package directfb
 Summary:	Ecore frame buffer system functions
-Summary(pl):	Funkcje systemowe framebuffera Ecore
+Summary(pl.UTF-8):   Funkcje systemowe framebuffera Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -106,12 +106,12 @@ Conflicts:	ecore-libs
 %description directfb
 Ecore frame buffer system functions.
 
-%description directfb -l pl
+%description directfb -l pl.UTF-8
 Funkcje systemowe framebuffera Ecore.
 
 %package evas
 Summary:	Ecore Evas Wrapper Library
-Summary(pl):	Biblioteka Ecore Evas Wrapper
+Summary(pl.UTF-8):   Biblioteka Ecore Evas Wrapper
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -119,12 +119,12 @@ Conflicts:	ecore-libs
 %description evas
 Ecore Evas Wrapper Library.
 
-%description evas -l pl
+%description evas -l pl.UTF-8
 Biblioteka Ecore Evas Wrapper.
 
 %package fb
 Summary:	Ecore frame buffer system functions
-Summary(pl):	Funkcje systemowe framebuffera Ecore
+Summary(pl.UTF-8):   Funkcje systemowe framebuffera Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -132,12 +132,12 @@ Conflicts:	ecore-libs
 %description fb
 Ecore frame buffer system functions.
 
-%description fb -l pl
+%description fb -l pl.UTF-8
 Funkcje systemowe framebuffera Ecore.
 
 %package file
 Summary:	Ecore File Library
-Summary(pl):	Biblioteka Ecore File
+Summary(pl.UTF-8):   Biblioteka Ecore File
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -145,12 +145,12 @@ Conflicts:	ecore-libs
 %description file
 Ecore File Library.
 
-%description file -l pl
+%description file -l pl.UTF-8
 Biblioteka Ecore File.
 
 %package ipc
 Summary:	Ecore inter-process communication functions
-Summary(pl):	Funkcje komunikacji miÍdzyprocesowej Ecore
+Summary(pl.UTF-8):   Funkcje komunikacji miƒôdzyprocesowej Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -158,12 +158,12 @@ Conflicts:	ecore-libs
 %description ipc
 Ecore inter-process communication functions.
 
-%description ipc -l pl
-Funkcje komunikacji miÍdzyprocesowej Ecore.
+%description ipc -l pl.UTF-8
+Funkcje komunikacji miƒôdzyprocesowej Ecore.
 
 %package job
 Summary:	Ecore job dealing functions
-Summary(pl):	Funkcje obs≥ugi zadaÒ Ecore
+Summary(pl.UTF-8):   Funkcje obs≈Çugi zada≈Ñ Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -171,12 +171,12 @@ Conflicts:	ecore-libs
 %description job
 Ecore job dealing functions.
 
-%description job -l pl
-Funkcje obs≥ugi zadaÒ Ecore.
+%description job -l pl.UTF-8
+Funkcje obs≈Çugi zada≈Ñ Ecore.
 
 %package txt
 Summary:	Ecore text encoding conversion functions
-Summary(pl):	Funkcje konwersji kodowania tekstu Ecore
+Summary(pl.UTF-8):   Funkcje konwersji kodowania tekstu Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -184,12 +184,12 @@ Conflicts:	ecore-libs
 %description txt
 Ecore text encoding conversion functions.
 
-%description txt -l pl
+%description txt -l pl.UTF-8
 Funkcje konwersji kodowania tekstu Ecore.
 
 %package x
 Summary:	Ecore functions for dealing with the X Window System
-Summary(pl):	Funkcje Ecore do obs≥ugi X Window System
+Summary(pl.UTF-8):   Funkcje Ecore do obs≈Çugi X Window System
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Conflicts:	ecore-libs
@@ -197,12 +197,12 @@ Conflicts:	ecore-libs
 %description x
 Ecore functions for dealing with the X Window System.
 
-%description x -l pl
-Funkcje Ecore do obs≥ugi X Window System.
+%description x -l pl.UTF-8
+Funkcje Ecore do obs≈Çugi X Window System.
 
 %package devel
 Summary:	Ecore header files
-Summary(pl):	Pliki nag≥Ûwkowe Ecore
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe Ecore
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-con = %{version}-%{release}
@@ -224,19 +224,19 @@ Requires:	openssl-devel
 %description devel
 Ecore development files.
 
-%description devel -l pl
+%description devel -l pl.UTF-8
 Pliki programistyczne Ecore.
 
 %package static
 Summary:	Static Ecore libraries
-Summary(pl):	Statyczne biblioteki Ecore
+Summary(pl.UTF-8):   Statyczne biblioteki Ecore
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static Ecore libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczne biblioteki Ecore.
 
 %prep
