@@ -1,31 +1,45 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
+%bcond_with	xcb		# XCB instead of Xlib
 #
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.036
-Release:	5
+Version:	0.9.9.038
+Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	b2f3ba94aa47a885c77c3ad7a686ee42
+# Source0-md5:	a391c19e01c08b6591cc30f85c597ed2
+Patch0:		%{name}-tslib.patch
+Patch1:		%{name}-link.patch
 URL:		http://enlightenment.org/Libraries/Ecore/
-BuildRequires:	DirectFB-devel
+BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	curl-devel
-BuildRequires:	evas-devel
+BuildRequires:	eet-devel >= 0.9.10.038
+BuildRequires:	evas-devel >= %{version}
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
+BuildRequires:	tslib-devel
+%if %{with xcb}
+BuildRequires:	libxcb-devel
+BuildRequires:	xcb-util-devel
+%else
 BuildRequires:	xorg-lib-libXScrnSaver-devel
 BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXdamage-devel
+BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-lib-libXfixes-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXp-devel
 BuildRequires:	xorg-lib-libXrandr-devel
+BuildRequires:	xorg-lib-libXrender-devel
+%endif
+Requires:	evas >= %{version}
 Obsoletes:	ecore-libs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -61,7 +75,9 @@ Biblioteka połączeń Ecore.
 Summary:	Ecore Enlightened Property Library
 Summary(pl.UTF-8):	Biblioteka właściwości Ecore
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-ipc = %{version}-%{release}
+Requires:	evas-devel >= %{version}
+Requires:	eet-devel >= 0.9.10.038
 Conflicts:	ecore-libs
 
 %description config
@@ -74,7 +90,7 @@ Biblioteka właściwości Ecore.
 Summary:	Ecore DBus Library
 Summary(pl.UTF-8):	Biblioteka Ecore DBus
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-con = %{version}-%{release}
 Conflicts:	ecore-libs
 
 %description dbus
@@ -87,7 +103,7 @@ Biblioteka Ecore DBus.
 Summary:	Ecore freedesktop.org .desktop, icon, menu parsing Library
 Summary(pl.UTF-8):	Biblioteka przetwarzania plików .desktop, ikon i menu
 Group:		X11/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-file = %{version}-%{release}
 Conflicts:	ecore-libs
 
 %description desktop
@@ -101,6 +117,7 @@ Summary:	Ecore frame buffer system functions
 Summary(pl.UTF-8):	Funkcje systemowe framebuffera Ecore
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	DirectFB >= 0.9.16
 Conflicts:	ecore-libs
 
 %description directfb
@@ -113,7 +130,10 @@ Funkcje systemowe framebuffera Ecore.
 Summary:	Ecore Evas Wrapper Library
 Summary(pl.UTF-8):	Biblioteka Ecore Evas Wrapper
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-directfb = %{version}-%{release}
+Requires:	%{name}-fb = %{version}-%{release}
+Requires:	%{name}-x = %{version}-%{release}
+Requires:	evas >= %{version}
 Conflicts:	ecore-libs
 
 %description evas
@@ -152,7 +172,7 @@ Biblioteka Ecore File.
 Summary:	Ecore inter-process communication functions
 Summary(pl.UTF-8):	Funkcje komunikacji międzyprocesowej Ecore
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-con = %{version}-%{release}
 Conflicts:	ecore-libs
 
 %description ipc
@@ -191,7 +211,7 @@ Funkcje konwersji kodowania tekstu Ecore.
 Summary:	Ecore functions for dealing with the X Window System
 Summary(pl.UTF-8):	Funkcje Ecore do obsługi X Window System
 Group:		X11/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-txt = %{version}-%{release}
 Conflicts:	ecore-libs
 
 %description x
@@ -206,20 +226,28 @@ Summary(pl.UTF-8):	Pliki nagłówkowe Ecore
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-con = %{version}-%{release}
+# + openssl-devel curl-devel
 Requires:	%{name}-config = %{version}-%{release}
+# + eet-devel >= 0.9.10.038
 Requires:	%{name}-dbus = %{version}-%{release}
 Requires:	%{name}-desktop = %{version}-%{release}
 Requires:	%{name}-directfb = %{version}-%{release}
+# + DirectFB-devel >= 0.9.16
 Requires:	%{name}-evas = %{version}-%{release}
+# + evas-devel >= %{version}
 Requires:	%{name}-fb = %{version}-%{release}
+# + tslib-devel
 Requires:	%{name}-file = %{version}-%{release}
+# + curl-devel
 Requires:	%{name}-ipc = %{version}-%{release}
 Requires:	%{name}-job = %{version}-%{release}
 Requires:	%{name}-txt = %{version}-%{release}
 Requires:	%{name}-x = %{version}-%{release}
-Requires:	curl-devel
-Requires:	evas-devel
-Requires:	openssl-devel
+%if %{with xcb}
+# + libxcb-devel xcb-util-devel
+%else
+# + xorg-lib-libXScrnSaver-devel xorg-lib-libXcursor-devel xorg-lib-libXdamage-devel xorg-lib-libXext-devel xorg-lib-libXfixes-devel xorg-lib-libXinerama-devel xorg-lib-libXp-devel xorg-lib-libXrandr-devel xorg-lib-libXrender-devel
+%endif
 
 %description devel
 Ecore development files.
@@ -241,6 +269,8 @@ Statyczne biblioteki Ecore.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -252,6 +282,7 @@ Statyczne biblioteki Ecore.
 	%{!?with_static_libs:--disable-static} \
 	--enable-ecore-txt	\
 	--enable-ecore-x	\
+	%{?with_xcb:--enable-ecore-x-xcb}	\
 	--enable-ecore-job	\
 	--enable-ecore-fb	\
 	--enable-ecore-evas	\
@@ -365,14 +396,20 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ecore-config
-%attr(755,root,root) %{_libdir}/libecore*.so
-%{_libdir}/libecore*.la
+%attr(755,root,root) %{_libdir}/libecore.so
+%{_libdir}/libecore.la
+%{_includedir}/Ecore.h
 %{_pkgconfigdir}/ecore.pc
-%{_aclocaldir}/ecore.m4
-%{_includedir}/Ecore*.h
+# modules
+%attr(755,root,root) %{_libdir}/libecore_*.so
+%{_libdir}/libecore_*.la
+%{_includedir}/Ecore_*.h
+%{_pkgconfigdir}/ecore-*.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libecore*.a
+%{_libdir}/libecore.a
+# modules
+%{_libdir}/libecore_*.a
 %endif
