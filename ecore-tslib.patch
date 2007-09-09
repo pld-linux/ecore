@@ -1,0 +1,11 @@
+--- ecore-0.9.9.038/configure.in.orig	2007-05-05 17:04:30.000000000 +0200
++++ ecore-0.9.9.038/configure.in	2007-09-09 12:17:38.017980725 +0200
+@@ -321,7 +321,7 @@
+ if test "x$have_ecore_fb" = "xyes" ; then
+ AC_CHECK_HEADER(tslib.h,
+   [
+-   tslib_libs="-ltslib"
++   tslib_libs="-lts"
+    AC_DEFINE(HAVE_TSLIB, 1, [Build Ecore_FB Touchscreen Code])
+   ]
+ )
