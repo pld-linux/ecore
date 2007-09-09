@@ -14,7 +14,7 @@ Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
 # Source0-md5:	a391c19e01c08b6591cc30f85c597ed2
 Patch0:		%{name}-tslib.patch
 Patch1:		%{name}-link.patch
-URL:		http://enlightenment.org/Libraries/Ecore/
+URL:		http://enlightenment.org/p.php?p=about/libs/ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	autoconf
 BuildRequires:	automake
