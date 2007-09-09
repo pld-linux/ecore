@@ -1,0 +1,183 @@
+--- ecore-0.9.9.038/src/lib/ecore_job/Makefile.am.orig	2006-09-05 02:36:44.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_job/Makefile.am	2007-09-09 12:20:13.026814175 +0200
+@@ -4,8 +4,7 @@ INCLUDES = \
+ -I$(top_srcdir)/src/lib/ecore \
+ -I$(top_builddir)/src/lib/ecore
+ 
+-libecore_job_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs
++libecore_job_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_JOB
+ 
+--- ecore-0.9.9.038/src/lib/ecore_txt/Makefile.am.orig	2006-09-05 02:36:44.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_txt/Makefile.am	2007-09-09 12:20:08.966582796 +0200
+@@ -5,8 +5,7 @@ INCLUDES = \
+ -I$(top_builddir)/src/lib/ecore \
+ @iconv_cflags@
+ 
+-libecore_txt_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs
++libecore_txt_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_TXT
+ 
+--- ecore-0.9.9.038/src/lib/ecore_fb/Makefile.am.orig	2006-09-05 02:36:43.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_fb/Makefile.am	2007-09-09 12:20:05.338376036 +0200
+@@ -4,8 +4,7 @@ INCLUDES = \
+ -I$(top_srcdir)/src/lib/ecore \
+ -I$(top_builddir)/src/lib/ecore
+ 
+-libecore_fb_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs
++libecore_fb_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_FB
+ 
+--- ecore-0.9.9.038/src/lib/ecore_directfb/Makefile.am.orig	2006-09-05 02:36:43.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_directfb/Makefile.am	2007-09-09 12:20:00.062075357 +0200
+@@ -5,8 +5,7 @@ INCLUDES = \
+ -I$(top_builddir)/src/lib/ecore \
+ @DIRECTFB_CFLAGS@
+ 
+-libecore_directfb_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs 
++libecore_directfb_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_DIRECTFB
+ 
+--- ecore-0.9.9.038/src/lib/ecore_con/Makefile.am.orig	2006-09-05 02:36:43.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_con/Makefile.am	2007-09-09 12:19:55.885837365 +0200
+@@ -7,8 +7,7 @@ INCLUDES = \
+ -I$(top_srcdir)/src/lib/ecore_con \
+ @SSL_CFLAGS@ @CURL_CFLAGS@
+ 
+-libecore_con_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs
++libecore_con_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_CON
+ 
+--- ecore-0.9.9.038/src/lib/ecore_x/Makefile.am.orig	2007-04-14 03:58:27.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_x/Makefile.am	2007-09-09 12:19:52.469642689 +0200
+@@ -35,9 +35,7 @@ INCLUDES = \
+ -I$(top_builddir)/src/lib/ecore_txt
+ endif
+ 
+-libecore_x_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs \
+--L$(top_builddir)/src/lib/ecore_txt/.libs
++libecore_x_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_X_XCB
+ 
+--- ecore-0.9.9.038/src/lib/ecore_ipc/Makefile.am.orig	2006-09-05 02:36:44.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_ipc/Makefile.am	2007-09-09 12:19:48.369409030 +0200
+@@ -9,9 +9,7 @@ INCLUDES = \
+ -I$(top_srcdir)/src/lib/ecore_ipc \
+ @SSL_CFLAGS@
+ 
+-libecore_ipc_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs \
+--L$(top_builddir)/src/lib/ecore_con/.libs
++libecore_ipc_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_IPC
+ 
+--- ecore-0.9.9.038/src/lib/ecore_evas/Makefile.am.orig	2007-04-14 03:58:26.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_evas/Makefile.am	2007-09-09 12:19:42.877096040 +0200
+@@ -3,31 +3,25 @@ MAINTAINERCLEANFILES = Makefile.in
+ if BUILD_ECORE_X
+ ECORE_X_INC = -I$(top_srcdir)/src/lib/ecore_x
+ ECORE_X_LIB = $(top_builddir)/src/lib/ecore_x/libecore_x.la
+-ECORE_X_LDF = -L$(top_builddir)/src/lib/ecore_x/.libs
+ else
+ ECORE_X_INC =
+ ECORE_X_LIB = 
+-ECORE_X_LDF = 
+ endif
+ 
+ if BUILD_ECORE_FB
+ ECORE_FB_INC = -I$(top_srcdir)/src/lib/ecore_fb
+ ECORE_FB_LIB = $(top_builddir)/src/lib/ecore_fb/libecore_fb.la
+-ECORE_FB_LDF = -L$(top_builddir)/src/lib/ecore_fb/.libs
+ else
+ ECORE_FB_INC =
+ ECORE_FB_LIB =
+-ECORE_FB_LDF = 
+ endif
+ 
+ if BUILD_ECORE_DIRECTFB
+ ECORE_DIRECTFB_INC = -I$(top_srcdir)/src/lib/ecore_directfb -I@DIRECTFB_CFLAGS@
+ ECORE_DIRECTFB_LIB = $(top_builddir)/src/lib/ecore_directfb/libecore_directfb.la
+-ECORE_DIRECTFB_LDF = -L$(top_builddir)/src/lib/ecore_directfb/.libs
+ else
+ ECORE_DIRECTFB_INC =
+ ECORE_DIRECTFB_LIB =
+-ECORE_DIRECTFB_LDF = 
+ endif
+ 
+ INCLUDES = \
+@@ -41,11 +35,7 @@ $(ECORE_DIRECTFB_INC) \
+ @EVAS_CFLAGS@ \
+ @XCB_CFLAGS@
+ 
+-libecore_evas_la_LDFLAGS = -version-info 1:0:0 \
+-$(ECORE_X_LDF) \
+-$(ECORE_FB_LDF) \
+-$(ECORE_DIRECTFB_LDF) \
+--L$(top_builddir)/src/lib/ecore/.libs
++libecore_evas_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_EVAS
+ 
+--- ecore-0.9.9.038/src/lib/ecore_config/Makefile.am.orig	2006-09-05 02:36:43.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_config/Makefile.am	2007-09-09 12:19:30.380383893 +0200
+@@ -14,8 +14,7 @@ INCLUDES = \
+ 
+ CLEANFILES = $(DB)
+ 
+-libecore_config_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs
++libecore_config_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_CONFIG
+ 
+--- ecore-0.9.9.038/src/lib/ecore_file/Makefile.am.orig	2006-09-05 02:36:43.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_file/Makefile.am	2007-09-09 12:19:25.628113077 +0200
+@@ -5,8 +5,7 @@ INCLUDES = \
+ -I$(top_builddir)/src/lib/ecore \
+ @CURL_CFLAGS@
+ 
+-libecore_file_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs
++libecore_file_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_FILE
+ 
+--- ecore-0.9.9.038/src/lib/ecore_desktop/Makefile.am.orig	2006-09-26 11:42:44.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_desktop/Makefile.am	2007-09-09 12:19:21.143857534 +0200
+@@ -8,9 +8,7 @@ INCLUDES = \
+ -I$(top_srcdir)/src/lib/ecore_file \
+ -I$(top_srcdir)/src/lib/ecore_desktop
+ 
+-libecore_desktop_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs \
+--L$(top_builddir)/src/lib/ecore_file/.libs
++libecore_desktop_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_DESKTOP
+ 
+--- ecore-0.9.9.038/src/lib/ecore_dbus/Makefile.am.orig	2006-09-27 02:57:19.000000000 +0200
++++ ecore-0.9.9.038/src/lib/ecore_dbus/Makefile.am	2007-09-09 12:19:15.611542265 +0200
+@@ -9,9 +9,7 @@ INCLUDES = \
+ -I$(top_srcdir)/src/lib/ecore_dbus \
+ @SSL_CFLAGS@
+ 
+-libecore_dbus_la_LDFLAGS = -version-info 1:0:0 \
+--L$(top_builddir)/src/lib/ecore/.libs \
+--L$(top_builddir)/src/lib/ecore_con/.libs
++libecore_dbus_la_LDFLAGS = -version-info 1:0:0
+ 
+ if BUILD_ECORE_DBUS
+ 
