@@ -3,6 +3,8 @@
 %bcond_without	static_libs	# don't build static library
 %bcond_with	xcb		# XCB instead of Xlib
 #
+%define		eet_ver	0.9.10.038
+
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
@@ -19,7 +21,7 @@ BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	curl-devel
-BuildRequires:	eet-devel >= 0.9.10.038
+BuildRequires:	eet-devel >= %{eet_ver}
 BuildRequires:	evas-devel >= %{version}
 BuildRequires:	libtool
 BuildRequires:	openssl-devel
@@ -77,7 +79,7 @@ Summary(pl.UTF-8):	Biblioteka właściwości Ecore
 Group:		Libraries
 Requires:	%{name}-ipc = %{version}-%{release}
 Requires:	evas-devel >= %{version}
-Requires:	eet-devel >= 0.9.10.038
+Requires:	eet-devel >= %{eet_ver}
 Conflicts:	ecore-libs
 
 %description config
