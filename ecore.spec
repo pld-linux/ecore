@@ -1,6 +1,6 @@
 #
 # TODO:
-# - why desktop and directfb does not build?
+# - why directfb does not build?
 # - fill imf summary and desc.
 #
 # Conditional build:
@@ -236,7 +236,7 @@ Requires:	%{name}-con = %{version}-%{release}
 Requires:	%{name}-config = %{version}-%{release}
 # + eet-devel >= 0.9.10.038
 #Requires:	%{name}-dbus = %{version}-%{release}
-#Requires:	%{name}-desktop = %{version}-%{release}
+Requires:	%{name}-desktop = %{version}-%{release}
 #Requires:	%{name}-directfb = %{version}-%{release}
 # + DirectFB-devel >= 0.9.16
 Requires:	%{name}-evas = %{version}-%{release}
@@ -292,8 +292,8 @@ Statyczne biblioteki Ecore.
 	%{?with_xcb:--enable-ecore-x-xcb}	\
 	--enable-ecore-job	\
 	--enable-ecore-fb	\
+	--enable-ecore-desktop	\
 	--enable-ecore-evas	\
-	--enable-ecore-evas-gl	\
 	--enable-ecore-evas-xrender \
 	--enable-ecore-evas-dfb	\
 	--enable-ecore-evas-fb	\
@@ -305,8 +305,7 @@ Statyczne biblioteki Ecore.
 	--enable-ecore-file	\
 	--enable-inotify	\
 	--enable-poll		\
-	--enable-curl		\
-	--enable-pthreads
+	--enable-curl
 
 %{__make}
 
@@ -363,9 +362,9 @@ rm -rf $RPM_BUILD_ROOT
 #%defattr(644,root,root,755)
 #%attr(755,root,root) %{_libdir}/libecore_directfb.so.*
 
-#%files desktop
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/libecore_desktop.so.*
+%files desktop
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_desktop.so.*
 
 %files evas
 %defattr(644,root,root,755)
