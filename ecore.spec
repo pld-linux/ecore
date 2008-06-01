@@ -1,4 +1,8 @@
 #
+# TODO:
+# - why desktop and directfb does not build?
+# - fill imf summary and desc.
+#
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 %bcond_with	xcb		# XCB instead of Xlib
@@ -8,12 +12,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.038
+Version:	0.9.9.043
 Release:	1
 License:	BSD
 Group:		X11/Libraries
-Source0:	http://enlightenment.freedesktop.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	a391c19e01c08b6591cc30f85c597ed2
+Source0:	http://download.enlightenment.org/snapshots/2008-05-19/%{name}-%{version}.tar.bz2
+# Source0-md5:	3d328b276556045c3d169ea4980d1aaf
 Patch0:		%{name}-tslib.patch
 Patch1:		%{name}-link.patch
 URL:		http://enlightenment.org/p.php?p=about/libs/ecore
@@ -88,19 +92,6 @@ Ecore Enlightened Property Library.
 %description config -l pl.UTF-8
 Biblioteka właściwości Ecore.
 
-%package dbus
-Summary:	Ecore DBus Library
-Summary(pl.UTF-8):	Biblioteka Ecore DBus
-Group:		Libraries
-Requires:	%{name}-con = %{version}-%{release}
-Conflicts:	ecore-libs
-
-%description dbus
-Ecore DBus Library.
-
-%description dbus -l pl.UTF-8
-Biblioteka Ecore DBus.
-
 %package desktop
 Summary:	Ecore freedesktop.org .desktop, icon, menu parsing Library
 Summary(pl.UTF-8):	Biblioteka przetwarzania plików .desktop, ikon i menu
@@ -132,7 +123,7 @@ Funkcje systemowe framebuffera Ecore.
 Summary:	Ecore Evas Wrapper Library
 Summary(pl.UTF-8):	Biblioteka Ecore Evas Wrapper
 Group:		Libraries
-Requires:	%{name}-directfb = %{version}-%{release}
+#Requires:	%{name}-directfb = %{version}-%{release}
 Requires:	%{name}-fb = %{version}-%{release}
 Requires:	%{name}-x = %{version}-%{release}
 Requires:	evas >= %{version}
@@ -169,6 +160,19 @@ Ecore File Library.
 
 %description file -l pl.UTF-8
 Biblioteka Ecore File.
+
+%package imf
+Summary:	Ecore imf functions
+#Summary(pl.UTF-8):	Funkcje imf Ecore
+Group:		Libraries
+Requires:	%{name}-con = %{version}-%{release}
+Conflicts:	ecore-libs
+
+%description imf
+Ecore imf functions.
+
+#%description imf -l pl.UTF-8
+#Funkcje imf Ecore.
 
 %package ipc
 Summary:	Ecore inter-process communication functions
@@ -231,9 +235,9 @@ Requires:	%{name}-con = %{version}-%{release}
 # + openssl-devel curl-devel
 Requires:	%{name}-config = %{version}-%{release}
 # + eet-devel >= 0.9.10.038
-Requires:	%{name}-dbus = %{version}-%{release}
-Requires:	%{name}-desktop = %{version}-%{release}
-Requires:	%{name}-directfb = %{version}-%{release}
+#Requires:	%{name}-dbus = %{version}-%{release}
+#Requires:	%{name}-desktop = %{version}-%{release}
+#Requires:	%{name}-directfb = %{version}-%{release}
 # + DirectFB-devel >= 0.9.16
 Requires:	%{name}-evas = %{version}-%{release}
 # + evas-devel >= %{version}
@@ -241,6 +245,7 @@ Requires:	%{name}-fb = %{version}-%{release}
 # + tslib-devel
 Requires:	%{name}-file = %{version}-%{release}
 # + curl-devel
+Requires:	%{name}-imf = %{version}-%{release}
 Requires:	%{name}-ipc = %{version}-%{release}
 Requires:	%{name}-job = %{version}-%{release}
 Requires:	%{name}-txt = %{version}-%{release}
@@ -271,8 +276,8 @@ Statyczne biblioteki Ecore.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+#%patch0 -p1
+#%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -296,7 +301,6 @@ Statyczne biblioteki Ecore.
 	--enable-ecore-con	\
 	--enable-openssl	\
 	--enable-ecore-ipc	\
-	--enable-ecore-dbus	\
 	--enable-ecore-config	\
 	--enable-ecore-file	\
 	--enable-inotify	\
@@ -320,8 +324,6 @@ rm -rf $RPM_BUILD_ROOT
 %postun	con	-p /sbin/ldconfig
 %post	config	-p /sbin/ldconfig
 %postun	config	-p /sbin/ldconfig
-%post	dbus	-p /sbin/ldconfig
-%postun	dbus	-p /sbin/ldconfig
 %post	directfb -p /sbin/ldconfig
 %postun	directfb -p /sbin/ldconfig
 %post	desktop	-p /sbin/ldconfig
@@ -332,6 +334,8 @@ rm -rf $RPM_BUILD_ROOT
 %postun	fb	-p /sbin/ldconfig
 %post	file	-p /sbin/ldconfig
 %postun	file	-p /sbin/ldconfig
+%post	imf	-p /sbin/ldconfig
+%postun	imf	-p /sbin/ldconfig
 %post	ipc	-p /sbin/ldconfig
 %postun	ipc	-p /sbin/ldconfig
 %post	job	-p /sbin/ldconfig
@@ -344,60 +348,61 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING COPYING-PLAIN README
-%attr(755,root,root) %{_libdir}/libecore.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore.so.*
 
 %files con
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_con.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_con.so.*
 
 %files config
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ecore_config
-%attr(755,root,root) %{_libdir}/libecore_config.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_config.so.*
 
-%files dbus
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_dbus.so.*.*.*
+#%files directfb
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_libdir}/libecore_directfb.so.*
 
-%files directfb
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_directfb.so.*.*.*
-
-%files desktop
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_desktop.so.*.*.*
+#%files desktop
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_libdir}/libecore_desktop.so.*
 
 %files evas
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_evas.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_evas.so.*
 
 %files fb
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_fb.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_fb.so.*
 
 %files file
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_file.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_file.so.*
+
+%files imf
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_imf.so.*
+%attr(755,root,root) %{_libdir}/libecore_imf_evas.so.*
 
 %files ipc
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_ipc.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_ipc.so.*
 
 %files job
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_job.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_job.so.*
 
 %files txt
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_txt.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_txt.so.*
 
 %files x
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_x.so.*.*.*
+%attr(755,root,root) %{_libdir}/libecore_x.so.*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/ecore-config
+#%attr(755,root,root) %{_bindir}/ecore-config
 %attr(755,root,root) %{_libdir}/libecore.so
 %{_libdir}/libecore.la
 %{_includedir}/Ecore.h
