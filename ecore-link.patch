@@ -1,0 +1,11 @@
+--- ecore-0.9.9.043/src/lib/ecore_evas/Makefile.am.orig	2008-01-24 00:43:35.000000000 +0100
++++ ecore-0.9.9.043/src/lib/ecore_evas/Makefile.am	2008-06-03 22:21:33.746472611 +0200
+@@ -34,7 +34,7 @@
+ 
+ if BUILD_ECORE_SDL
+ ECORE_SDL_INC = -I$(top_srcdir)/src/lib/ecore_sdl @SDL_CFLAGS@
+-ECORE_SDL_LIB = $(top_builddir)/src/lib/ecore_sdl/libecore_sdl.la @SDL_LIBS@
++ECORE_SDL_LIB = $(top_builddir)/src/lib/ecore_sdl/libecore_sdl.la
+ else
+ ECORE_SDL_INC =
+ ECORE_SDL_LIB =
