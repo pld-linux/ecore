@@ -1,8 +1,4 @@
 #
-# TODO:
-# - why directfb does not build?
-# - fill imf summary and desc.
-#
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 %bcond_with	xcb		# XCB instead of Xlib
@@ -18,12 +14,12 @@ License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/snapshots/2008-05-19/%{name}-%{version}.tar.bz2
 # Source0-md5:	3d328b276556045c3d169ea4980d1aaf
-Patch0:		%{name}-tslib.patch
-Patch1:		%{name}-link.patch
+Patch0:		%{name}-link.patch
 URL:		http://enlightenment.org/p.php?p=about/libs/ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	SDL-devel
+BuildRequires:	autoconf >= 2.52
+BuildRequires:	automake >= 1.6
 BuildRequires:	curl-devel
 BuildRequires:	eet-devel >= %{eet_ver}
 BuildRequires:	evas-devel >= %{version}
@@ -119,22 +115,6 @@ Ecore frame buffer system functions.
 %description directfb -l pl.UTF-8
 Funkcje systemowe framebuffera Ecore.
 
-%package evas
-Summary:	Ecore Evas Wrapper Library
-Summary(pl.UTF-8):	Biblioteka Ecore Evas Wrapper
-Group:		Libraries
-#Requires:	%{name}-directfb = %{version}-%{release}
-Requires:	%{name}-fb = %{version}-%{release}
-Requires:	%{name}-x = %{version}-%{release}
-Requires:	evas >= %{version}
-Conflicts:	ecore-libs
-
-%description evas
-Ecore Evas Wrapper Library.
-
-%description evas -l pl.UTF-8
-Biblioteka Ecore Evas Wrapper.
-
 %package fb
 Summary:	Ecore frame buffer system functions
 Summary(pl.UTF-8):	Funkcje systemowe framebuffera Ecore
@@ -162,17 +142,31 @@ Ecore File Library.
 Biblioteka Ecore File.
 
 %package imf
-Summary:	Ecore imf functions
-#Summary(pl.UTF-8):	Funkcje imf Ecore
+Summary:	Ecore library IMF module
+Summary(pl.UTF-8):	Moduł IMF biblioteki Ecore
 Group:		Libraries
 Requires:	%{name}-con = %{version}-%{release}
 Conflicts:	ecore-libs
 
 %description imf
-Ecore imf functions.
+Ecore library IMF module.
 
-#%description imf -l pl.UTF-8
-#Funkcje imf Ecore.
+%description imf -l pl.UTF-8
+Moduł IMF biblioteki Ecore.
+
+%package imf-evas
+Summary:	Ecore library IMF Evas module
+Summary(pl.UTF-8):	Moduł IMF Evas biblioteki Ecore
+Group:		Libraries
+Requires:	%{name}-evas = %{version}-%{release}
+Requires:	%{name}-imf = %{version}-%{release}
+Conflicts:	ecore-libs
+
+%description imf-evas
+Ecore library IMF Evas module.
+
+%description imf-evas -l pl.UTF-8
+Moduł IMF Evas biblioteki Ecore.
 
 %package ipc
 Summary:	Ecore inter-process communication functions
@@ -199,6 +193,19 @@ Ecore job dealing functions.
 
 %description job -l pl.UTF-8
 Funkcje obsługi zadań Ecore.
+
+%package sdl
+Summary:	Ecore library SDL module
+Summary(pl.UTF-8):	Moduł SDL biblioteki Ecore
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Conflicts:	ecore-libs
+
+%description sdl
+Ecore library SDL module.
+
+%description sdl -l pl.UTF-8
+Moduł SDL biblioteki Ecore.
 
 %package txt
 Summary:	Ecore text encoding conversion functions
@@ -235,12 +242,9 @@ Requires:	%{name}-con = %{version}-%{release}
 # + openssl-devel curl-devel
 Requires:	%{name}-config = %{version}-%{release}
 # + eet-devel >= 0.9.10.038
-#Requires:	%{name}-dbus = %{version}-%{release}
 Requires:	%{name}-desktop = %{version}-%{release}
-#Requires:	%{name}-directfb = %{version}-%{release}
+Requires:	%{name}-directfb = %{version}-%{release}
 # + DirectFB-devel >= 0.9.16
-Requires:	%{name}-evas = %{version}-%{release}
-# + evas-devel >= %{version}
 Requires:	%{name}-fb = %{version}-%{release}
 # + tslib-devel
 Requires:	%{name}-file = %{version}-%{release}
@@ -248,6 +252,8 @@ Requires:	%{name}-file = %{version}-%{release}
 Requires:	%{name}-imf = %{version}-%{release}
 Requires:	%{name}-ipc = %{version}-%{release}
 Requires:	%{name}-job = %{version}-%{release}
+Requires:	%{name}-sdl = %{version}-%{release}
+# + sdl-devel
 Requires:	%{name}-txt = %{version}-%{release}
 Requires:	%{name}-x = %{version}-%{release}
 %if %{with xcb}
@@ -274,10 +280,55 @@ Static Ecore libraries.
 %description static -l pl.UTF-8
 Statyczne biblioteki Ecore.
 
+%package evas
+Summary:	Ecore Evas Wrapper Library
+Summary(pl.UTF-8):	Biblioteka Ecore Evas Wrapper
+Group:		Libraries
+#Requires:	%{name}-directfb = %{version}-%{release}
+Requires:	%{name}-fb = %{version}-%{release}
+Requires:	%{name}-sdl = %{version}-%{release}
+Requires:	%{name}-x = %{version}-%{release}
+Requires:	evas >= %{version}
+Conflicts:	ecore-libs
+
+%description evas
+Ecore Evas Wrapper Library.
+
+%description evas -l pl.UTF-8
+Biblioteka Ecore Evas Wrapper.
+
+%package evas-devel
+Summary:	Header files for Ecore Evas Wrapper Library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteka Ecore Evas Wrapper
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-imf-evas = %{version}-%{release}
+#Requires:	DirectFB-devel >= 0.9.16
+Requires:	SDL-devel
+Requires:	evas-devel >= %{version}
+Requires:	tslib-devel
+
+%description evas-devel
+Header files for Ecore Evas Wrapper Library.
+
+%description evas-devel -l pl.UTF-8
+Pliki nagłówkowe biblioteka Ecore Evas Wrapper.
+
+%package evas-static
+Summary:	Static Ecore Evas Wrapper Library
+Summary(pl.UTF-8):	Biblioteka statyczna Ecore Evas Wrapper
+Group:		Development/Libraries
+Requires:	%{name}-evas-devel = %{version}-%{release}
+
+%description evas-static
+Static Ecore Evas Wrapper Library.
+
+%description evas-static -l pl.UTF-8
+Biblioteka statyczna Ecore Evas Wrapper.
+
 %prep
 %setup -q
-#%patch0 -p1
-#%patch1 -p1
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -287,30 +338,36 @@ Statyczne biblioteki Ecore.
 %{__automake}
 %configure \
 	%{!?with_static_libs:--disable-static} \
+	--enable-ecore-con	\
+	--enable-ecore-config	\
+	--enable-ecore-desktop	\
+	--enable-ecore-directfb	\
+	--enable-ecore-fb	\
+	--enable-ecore-file	\
+	--enable-ecore-ipc	\
+	--enable-ecore-job	\
+	--enable-ecore-sdl	\
 	--enable-ecore-txt	\
 	--enable-ecore-x	\
 	%{?with_xcb:--enable-ecore-x-xcb}	\
-	--enable-ecore-job	\
-	--enable-ecore-fb	\
-	--enable-ecore-desktop	\
 	--enable-ecore-evas	\
-	--enable-ecore-evas-xrender \
-	--enable-ecore-evas-dfb	\
-	--enable-ecore-evas-fb	\
 	--enable-ecore-evas-buffer \
-	--enable-ecore-con	\
-	--enable-openssl	\
-	--enable-ecore-ipc	\
-	--enable-ecore-config	\
-	--enable-ecore-file	\
+	--disable-ecore-evas-dfb \
+	--enable-ecore-evas-fb	\
+	--enable-ecore-evas-sdl	\
+	--enable-ecore-evas-xrender \
+	--enable-curl		\
 	--enable-inotify	\
-	--enable-poll		\
-	--enable-curl
+	--enable-openssl	\
+	--enable-poll
+
+# --enable-ecore-evas-dfb needs evas-directfb (currently disabled)
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -335,10 +392,14 @@ rm -rf $RPM_BUILD_ROOT
 %postun	file	-p /sbin/ldconfig
 %post	imf	-p /sbin/ldconfig
 %postun	imf	-p /sbin/ldconfig
+%post	imf-evas -p /sbin/ldconfig
+%postun	imf-evas -p /sbin/ldconfig
 %post	ipc	-p /sbin/ldconfig
 %postun	ipc	-p /sbin/ldconfig
 %post	job	-p /sbin/ldconfig
 %postun	job	-p /sbin/ldconfig
+%post	sdl	-p /sbin/ldconfig
+%postun	sdl	-p /sbin/ldconfig
 %post	txt	-p /sbin/ldconfig
 %postun	txt	-p /sbin/ldconfig
 %post	x	-p /sbin/ldconfig
@@ -347,75 +408,173 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING COPYING-PLAIN README
-%attr(755,root,root) %{_libdir}/libecore.so.*
+%attr(755,root,root) %{_libdir}/libecore.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore.so.0
 
 %files con
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_con.so.*
+%attr(755,root,root) %{_libdir}/libecore_con.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_con.so.0
 
 %files config
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ecore_config
-%attr(755,root,root) %{_libdir}/libecore_config.so.*
+%attr(755,root,root) %{_libdir}/libecore_config.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_config.so.0
 
-#%files directfb
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/libecore_directfb.so.*
+%files directfb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_directfb.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_directfb.so.0
 
 %files desktop
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_desktop.so.*
-
-%files evas
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_evas.so.*
+%attr(755,root,root) %{_libdir}/libecore_desktop.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_desktop.so.0
 
 %files fb
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_fb.so.*
+%attr(755,root,root) %{_libdir}/libecore_fb.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_fb.so.0
 
 %files file
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_file.so.*
+%attr(755,root,root) %{_libdir}/libecore_file.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_file.so.0
 
 %files imf
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_imf.so.*
-%attr(755,root,root) %{_libdir}/libecore_imf_evas.so.*
+%attr(755,root,root) %{_libdir}/libecore_imf.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_imf.so.0
+
+%files imf-evas
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_imf_evas.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_imf_evas.so.0
 
 %files ipc
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_ipc.so.*
+%attr(755,root,root) %{_libdir}/libecore_ipc.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_ipc.so.0
 
 %files job
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_job.so.*
+%attr(755,root,root) %{_libdir}/libecore_job.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_job.so.0
+
+%files sdl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_sdl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_sdl.so.0
 
 %files txt
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_txt.so.*
+%attr(755,root,root) %{_libdir}/libecore_txt.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_txt.so.0
 
 %files x
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_x.so.*
+%attr(755,root,root) %{_libdir}/libecore_x.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_x.so.0
 
 %files devel
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/ecore-config
 %attr(755,root,root) %{_libdir}/libecore.so
 %{_libdir}/libecore.la
 %{_includedir}/Ecore.h
+%{_includedir}/Ecore_Data.h
+%{_includedir}/Ecore_Str.h
 %{_pkgconfigdir}/ecore.pc
 # modules
-%attr(755,root,root) %{_libdir}/libecore_*.so
-%{_libdir}/libecore_*.la
-%{_includedir}/Ecore_*.h
-%{_pkgconfigdir}/ecore-*.pc
+%attr(755,root,root) %{_libdir}/libecore_con.so
+%attr(755,root,root) %{_libdir}/libecore_config.so
+%attr(755,root,root) %{_libdir}/libecore_directfb.so
+%attr(755,root,root) %{_libdir}/libecore_desktop.so
+%attr(755,root,root) %{_libdir}/libecore_fb.so
+%attr(755,root,root) %{_libdir}/libecore_file.so
+%attr(755,root,root) %{_libdir}/libecore_imf.so
+%attr(755,root,root) %{_libdir}/libecore_ipc.so
+%attr(755,root,root) %{_libdir}/libecore_job.so
+%attr(755,root,root) %{_libdir}/libecore_sdl.so
+%attr(755,root,root) %{_libdir}/libecore_txt.so
+%attr(755,root,root) %{_libdir}/libecore_x.so
+%{_libdir}/libecore_con.la
+%{_libdir}/libecore_config.la
+%{_libdir}/libecore_directfb.la
+%{_libdir}/libecore_desktop.la
+%{_libdir}/libecore_fb.la
+%{_libdir}/libecore_file.la
+%{_libdir}/libecore_imf.la
+%{_libdir}/libecore_ipc.la
+%{_libdir}/libecore_job.la
+%{_libdir}/libecore_sdl.la
+%{_libdir}/libecore_txt.la
+%{_libdir}/libecore_x.la
+%{_includedir}/Ecore_Con.h
+%{_includedir}/Ecore_Config.h
+%{_includedir}/Ecore_Desktop.h
+%{_includedir}/Ecore_DirectFB.h
+%{_includedir}/Ecore_Fb.h
+%{_includedir}/Ecore_File.h
+%{_includedir}/Ecore_IMF.h
+%{_includedir}/Ecore_Ipc.h
+%{_includedir}/Ecore_Job.h
+%{_includedir}/Ecore_Sdl.h
+%{_includedir}/Ecore_Txt.h
+%{_includedir}/Ecore_X.h
+%{_includedir}/Ecore_X_Atoms.h
+%{_includedir}/Ecore_X_Cursor.h
+%{_pkgconfigdir}/ecore-con.pc
+%{_pkgconfigdir}/ecore-config.pc
+%{_pkgconfigdir}/ecore-directfb.pc
+%{_pkgconfigdir}/ecore-desktop.pc
+%{_pkgconfigdir}/ecore-fb.pc
+%{_pkgconfigdir}/ecore-file.pc
+%{_pkgconfigdir}/ecore-imf.pc
+%{_pkgconfigdir}/ecore-ipc.pc
+%{_pkgconfigdir}/ecore-job.pc
+%{_pkgconfigdir}/ecore-sdl.pc
+%{_pkgconfigdir}/ecore-txt.pc
+%{_pkgconfigdir}/ecore-x.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libecore.a
 # modules
-%{_libdir}/libecore_*.a
+%{_libdir}/libecore_con.a
+%{_libdir}/libecore_config.a
+%{_libdir}/libecore_directfb.a
+%{_libdir}/libecore_desktop.a
+%{_libdir}/libecore_fb.a
+%{_libdir}/libecore_file.a
+%{_libdir}/libecore_imf.a
+%{_libdir}/libecore_ipc.a
+%{_libdir}/libecore_job.a
+%{_libdir}/libecore_sdl.a
+%{_libdir}/libecore_txt.a
+%{_libdir}/libecore_x.a
 %endif
+
+%files evas
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_evas.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_evas.so.0
+
+%files evas-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_evas.so
+%{_libdir}/libecore_evas.la
+%{_includedir}/Ecore_Evas.h
+%{_pkgconfigdir}/ecore-evas.pc
+# evas modules
+%attr(755,root,root) %{_libdir}/libecore_imf_evas.so
+%{_libdir}/libecore_imf_evas.la
+%{_includedir}/Ecore_IMF_Evas.h
+%{_pkgconfigdir}/ecore-imf-evas.pc
+
+%files evas-static
+%defattr(644,root,root,755)
+%{_libdir}/libecore_evas.a
+# evas modules
+%{_libdir}/libecore_imf_evas.a
