@@ -78,8 +78,6 @@ Summary:	Ecore Enlightened Property Library
 Summary(pl.UTF-8):	Biblioteka właściwości Ecore
 Group:		Libraries
 Requires:	%{name}-ipc = %{version}-%{release}
-Requires:	evas-devel >= %{version}
-Requires:	eet-devel >= %{eet_ver}
 Conflicts:	ecore-libs
 
 %description config
