@@ -3,18 +3,17 @@
 %bcond_without	static_libs	# don't build static library
 %bcond_with	xcb		# XCB instead of Xlib
 #
-%define		_snap	20080813
-%define		eet_ver	1.0.1
+%define		eet_ver	1.1.0
 
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.044
-Release:	0.%{_snap}.1
+Version:	0.9.9.050
+Release:	0.1
 License:	BSD
 Group:		X11/Libraries
-Source0:	%{name}-%{version}-%{_snap}.tar.bz2
-# Source0-md5:	d04c6ca6acfd6b05b81ac4d65b2f229b
+Source0:	http://download.enlightenment.org/snapshots/2008-09-25/%{name}-%{version}.tar.bz2
+# Source0-md5:	cab0952967240b607c01c5013caaddf4
 URL:		http://enlightenment.org/p.php?p=about/libs/ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel
@@ -325,7 +324,7 @@ Static Ecore Evas Wrapper Library.
 Biblioteka statyczna Ecore Evas Wrapper.
 
 %prep
-%setup -q -n %{name}-%{version}-%{_snap}
+%setup -q -n %{name}-%{version}
 
 %build
 %{__libtoolize}
