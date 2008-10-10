@@ -324,7 +324,7 @@ Static Ecore Evas Wrapper Library.
 Biblioteka statyczna Ecore Evas Wrapper.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 %build
 %{__libtoolize}
