@@ -3,17 +3,18 @@
 %bcond_without	static_libs	# don't build static library
 %bcond_with	xcb		# XCB instead of Xlib
 #
-%define		eet_ver	1.1.0
-
+%define		eet_ver	1.3.2
+%define		snapdate	2010-06-27
+%define		svn	-ver-svn-06
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	0.9.9.050
+Version:	0.9.9.49898
 Release:	0.1
-License:	BSD
+License:	LGPL v2.1
 Group:		X11/Libraries
-Source0:	http://download.enlightenment.org/snapshots/2008-09-25/%{name}-%{version}.tar.bz2
-# Source0-md5:	cab0952967240b607c01c5013caaddf4
+Source0:	http://download.enlightenment.org/snapshots/%{snapdate}/%{name}-%{version}.tar.bz2
+# Source0-md5:	52245ac4e4c83e579692eff6380e56b1
 URL:		http://enlightenment.org/p.php?p=about/libs/ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel
@@ -165,6 +166,33 @@ Ecore library IMF Evas module.
 %description imf-evas -l pl.UTF-8
 Moduł IMF Evas biblioteki Ecore.
 
+%package input
+Summary:	Ecore library Input module
+Summary(pl.UTF-8):	Moduł Input biblioteki Ecore
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Conflicts:	ecore-libs
+
+%description input
+Ecore library Input module.
+
+%description input -l pl.UTF-8
+Moduł Input biblioteki Ecore.
+
+%package input-evas
+Summary:	Ecore library Input Evas module
+Summary(pl.UTF-8):	Moduł Input Evas biblioteki Ecore
+Group:		Libraries
+Requires:	%{name}-evas = %{version}-%{release}
+Requires:	%{name}-input = %{version}-%{release}
+Conflicts:	ecore-libs
+
+%description input-evas
+Ecore library Input Evas module.
+
+%description input-evas -l pl.UTF-8
+Moduł Input Evas biblioteki Ecore.
+
 %package ipc
 Summary:	Ecore inter-process communication functions
 Summary(pl.UTF-8):	Funkcje komunikacji międzyprocesowej Ecore
@@ -221,7 +249,6 @@ Funkcje konwersji kodowania tekstu Ecore.
 Summary:	Ecore functions for dealing with the X Window System
 Summary(pl.UTF-8):	Funkcje Ecore do obsługi X Window System
 Group:		X11/Libraries
-Requires:	%{name}-txt = %{version}-%{release}
 Conflicts:	ecore-libs
 
 %description x
@@ -239,7 +266,6 @@ Requires:	%{name}-con = %{version}-%{release}
 # + openssl-devel curl-devel
 Requires:	%{name}-config = %{version}-%{release}
 # + eet-devel >= 0.9.10.038
-Requires:	%{name}-desktop = %{version}-%{release}
 Requires:	%{name}-directfb = %{version}-%{release}
 # + DirectFB-devel >= 0.9.16
 Requires:	%{name}-fb = %{version}-%{release}
@@ -248,10 +274,8 @@ Requires:	%{name}-file = %{version}-%{release}
 # + curl-devel
 Requires:	%{name}-imf = %{version}-%{release}
 Requires:	%{name}-ipc = %{version}-%{release}
-Requires:	%{name}-job = %{version}-%{release}
 Requires:	%{name}-sdl = %{version}-%{release}
 # + sdl-devel
-Requires:	%{name}-txt = %{version}-%{release}
 Requires:	%{name}-x = %{version}-%{release}
 %if %{with xcb}
 # + libxcb-devel xcb-util-devel
@@ -336,14 +360,11 @@ Biblioteka statyczna Ecore Evas Wrapper.
 	%{!?with_static_libs:--disable-static} \
 	--enable-ecore-con	\
 	--enable-ecore-config	\
-	--enable-ecore-desktop	\
 	--enable-ecore-directfb	\
 	--enable-ecore-fb	\
 	--enable-ecore-file	\
 	--enable-ecore-ipc	\
-	--enable-ecore-job	\
 	--enable-ecore-sdl	\
-	--enable-ecore-txt	\
 	--enable-ecore-x	\
 	%{?with_xcb:--enable-ecore-x-xcb}	\
 	--enable-ecore-evas	\
@@ -359,13 +380,15 @@ Biblioteka statyczna Ecore Evas Wrapper.
 
 # --enable-ecore-evas-dfb needs evas-directfb (currently disabled)
 
-%{__make}
+%{__make} V=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%find_lang %{name} --all-name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -390,147 +413,168 @@ rm -rf $RPM_BUILD_ROOT
 %postun	imf	-p /sbin/ldconfig
 %post	imf-evas -p /sbin/ldconfig
 %postun	imf-evas -p /sbin/ldconfig
+%post	input	-p /sbin/ldconfig
+%postun	input	-p /sbin/ldconfig
+%post	input-evas -p /sbin/ldconfig
+%postun	input-evas -p /sbin/ldconfig
 %post	ipc	-p /sbin/ldconfig
 %postun	ipc	-p /sbin/ldconfig
-%post	job	-p /sbin/ldconfig
-%postun	job	-p /sbin/ldconfig
 %post	sdl	-p /sbin/ldconfig
 %postun	sdl	-p /sbin/ldconfig
-%post	txt	-p /sbin/ldconfig
-%postun	txt	-p /sbin/ldconfig
 %post	x	-p /sbin/ldconfig
 %postun	x	-p /sbin/ldconfig
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING COPYING-PLAIN README
-%attr(755,root,root) %{_libdir}/libecore.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore.so.0
+%attr(755,root,root) %{_libdir}/libecore%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore%{svn}.so.0
 
 %files con
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_con.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_con.so.0
+%attr(755,root,root) %{_libdir}/libecore_con%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_con%{svn}.so.0
 
 %files config
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ecore_config
-%attr(755,root,root) %{_libdir}/libecore_config.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_config.so.0
+%attr(755,root,root) %{_libdir}/libecore_config%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_config%{svn}.so.0
 
 %files directfb
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_directfb.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_directfb.so.0
+%attr(755,root,root) %{_libdir}/libecore_directfb%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_directfb%{svn}.so.0
 
+%if 0
 %files desktop
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libecore_desktop.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libecore_desktop.so.0
+%endif
 
 %files fb
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_fb.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_fb.so.0
+%attr(755,root,root) %{_libdir}/libecore_fb%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_fb%{svn}.so.0
 
 %files file
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_file.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_file.so.0
+%attr(755,root,root) %{_libdir}/libecore_file%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_file%{svn}.so.0
 
 %files imf
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_imf.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_imf.so.0
+%attr(755,root,root) %{_libdir}/libecore_imf%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_imf%{svn}.so.0
 
 %files imf-evas
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_imf_evas.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_imf_evas.so.0
+%attr(755,root,root) %{_libdir}/libecore_imf_evas%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_imf_evas%{svn}.so.0
+
+%files input
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_input%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_input%{svn}.so.0
+
+%files input-evas
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_input_evas%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_input_evas%{svn}.so.0
 
 %files ipc
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_ipc.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_ipc.so.0
+%attr(755,root,root) %{_libdir}/libecore_ipc%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_ipc%{svn}.so.0
 
+%if 0
 %files job
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libecore_job.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libecore_job.so.0
+%endif
 
 %files sdl
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_sdl.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_sdl.so.0
+%attr(755,root,root) %{_libdir}/libecore_sdl%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_sdl%{svn}.so.0
 
+%if 0
 %files txt
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libecore_txt.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libecore_txt.so.0
+%endif
 
 %files x
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_x.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_x.so.0
+%attr(755,root,root) %{_libdir}/libecore_x%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_x%{svn}.so.0
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libecore.so
 %{_libdir}/libecore.la
 %{_includedir}/Ecore.h
-%{_includedir}/Ecore_Data.h
-%{_includedir}/Ecore_Str.h
+%{_includedir}/Ecore_Getopt.h
+%{_includedir}/Ecore_Input.h
+#%{_includedir}/Ecore_Data.h
+#%{_includedir}/Ecore_Str.h
 %{_pkgconfigdir}/ecore.pc
 # modules
 %attr(755,root,root) %{_libdir}/libecore_con.so
 %attr(755,root,root) %{_libdir}/libecore_config.so
 %attr(755,root,root) %{_libdir}/libecore_directfb.so
-%attr(755,root,root) %{_libdir}/libecore_desktop.so
+#%attr(755,root,root) %{_libdir}/libecore_desktop.so
 %attr(755,root,root) %{_libdir}/libecore_fb.so
 %attr(755,root,root) %{_libdir}/libecore_file.so
 %attr(755,root,root) %{_libdir}/libecore_imf.so
+%attr(755,root,root) %{_libdir}/libecore_input.so
 %attr(755,root,root) %{_libdir}/libecore_ipc.so
-%attr(755,root,root) %{_libdir}/libecore_job.so
+#%attr(755,root,root) %{_libdir}/libecore_job.so
 %attr(755,root,root) %{_libdir}/libecore_sdl.so
-%attr(755,root,root) %{_libdir}/libecore_txt.so
+#%attr(755,root,root) %{_libdir}/libecore_txt.so
 %attr(755,root,root) %{_libdir}/libecore_x.so
 %{_libdir}/libecore_con.la
 %{_libdir}/libecore_config.la
 %{_libdir}/libecore_directfb.la
-%{_libdir}/libecore_desktop.la
+#%{_libdir}/libecore_desktop.la
 %{_libdir}/libecore_fb.la
 %{_libdir}/libecore_file.la
 %{_libdir}/libecore_imf.la
+%{_libdir}/libecore_input.la
 %{_libdir}/libecore_ipc.la
-%{_libdir}/libecore_job.la
+#%{_libdir}/libecore_job.la
 %{_libdir}/libecore_sdl.la
-%{_libdir}/libecore_txt.la
+#%{_libdir}/libecore_txt.la
 %{_libdir}/libecore_x.la
 %{_includedir}/Ecore_Con.h
 %{_includedir}/Ecore_Config.h
-%{_includedir}/Ecore_Desktop.h
+#%{_includedir}/Ecore_Desktop.h
 %{_includedir}/Ecore_DirectFB.h
 %{_includedir}/Ecore_Fb.h
 %{_includedir}/Ecore_File.h
 %{_includedir}/Ecore_IMF.h
 %{_includedir}/Ecore_Ipc.h
-%{_includedir}/Ecore_Job.h
+#%{_includedir}/Ecore_Job.h
 %{_includedir}/Ecore_Sdl.h
-%{_includedir}/Ecore_Txt.h
+#%{_includedir}/Ecore_Txt.h
 %{_includedir}/Ecore_X.h
 %{_includedir}/Ecore_X_Atoms.h
 %{_includedir}/Ecore_X_Cursor.h
 %{_pkgconfigdir}/ecore-con.pc
 %{_pkgconfigdir}/ecore-config.pc
 %{_pkgconfigdir}/ecore-directfb.pc
-%{_pkgconfigdir}/ecore-desktop.pc
+#%{_pkgconfigdir}/ecore-desktop.pc
 %{_pkgconfigdir}/ecore-fb.pc
 %{_pkgconfigdir}/ecore-file.pc
 %{_pkgconfigdir}/ecore-imf.pc
+%{_pkgconfigdir}/ecore-input.pc
 %{_pkgconfigdir}/ecore-ipc.pc
-%{_pkgconfigdir}/ecore-job.pc
+#%{_pkgconfigdir}/ecore-job.pc
 %{_pkgconfigdir}/ecore-sdl.pc
-%{_pkgconfigdir}/ecore-txt.pc
+#%{_pkgconfigdir}/ecore-txt.pc
 %{_pkgconfigdir}/ecore-x.pc
 
 %if %{with static_libs}
@@ -541,36 +585,42 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libecore_con.a
 %{_libdir}/libecore_config.a
 %{_libdir}/libecore_directfb.a
-%{_libdir}/libecore_desktop.a
+#%{_libdir}/libecore_desktop.a
 %{_libdir}/libecore_fb.a
 %{_libdir}/libecore_file.a
 %{_libdir}/libecore_imf.a
+%{_libdir}/libecore_input.a
 %{_libdir}/libecore_ipc.a
-%{_libdir}/libecore_job.a
+#%{_libdir}/libecore_job.a
 %{_libdir}/libecore_sdl.a
-%{_libdir}/libecore_txt.a
+#%{_libdir}/libecore_txt.a
 %{_libdir}/libecore_x.a
 %endif
 
 %files evas
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_evas.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_evas.so.0
+%attr(755,root,root) %{_libdir}/libecore_evas%{svn}.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_evas%{svn}.so.0
 
 %files evas-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libecore_evas.so
 %{_libdir}/libecore_evas.la
 %{_includedir}/Ecore_Evas.h
+%{_includedir}/Ecore_Input_Evas.h
 %{_pkgconfigdir}/ecore-evas.pc
 # evas modules
 %attr(755,root,root) %{_libdir}/libecore_imf_evas.so
+%attr(755,root,root) %{_libdir}/libecore_input_evas.so
 %{_libdir}/libecore_imf_evas.la
+%{_libdir}/libecore_input_evas.la
 %{_includedir}/Ecore_IMF_Evas.h
 %{_pkgconfigdir}/ecore-imf-evas.pc
+%{_pkgconfigdir}/ecore-input-evas.pc
 
 %files evas-static
 %defattr(644,root,root,755)
 %{_libdir}/libecore_evas.a
 # evas modules
 %{_libdir}/libecore_imf_evas.a
+%{_libdir}/libecore_input_evas.a
