@@ -4,7 +4,6 @@
 %bcond_with	xcb		# XCB instead of Xlib
 #
 %define		eet_ver	1.3.2
-%define		snapdate	2010-06-27
 %define		svn	-ver-svn-06
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
@@ -13,7 +12,7 @@ Version:	0.9.9.49898
 Release:	0.1
 License:	LGPL v2.1
 Group:		X11/Libraries
-Source0:	http://download.enlightenment.org/snapshots/%{snapdate}/%{name}-%{version}.tar.bz2
+Source0:	http://download.enlightenment.org/snapshots/LATEST/%{name}-%{version}.tar.bz2
 # Source0-md5:	52245ac4e4c83e579692eff6380e56b1
 URL:		http://enlightenment.org/p.php?p=about/libs/ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
