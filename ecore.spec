@@ -264,7 +264,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-con = %{version}-%{release}
 # + openssl-devel curl-devel
-Requires:	%{name}-config = %{version}-%{release}
+#Requires:	%{name}-config = %{version}-%{release}
 # + eet-devel >= 0.9.10.038
 Requires:	%{name}-directfb = %{version}-%{release}
 # + DirectFB-devel >= 0.9.16
@@ -425,7 +425,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING COPYING-PLAIN README
+%doc AUTHORS COPYING NEWS README
 %attr(755,root,root) %{_libdir}/libecore%{svn}.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libecore%{svn}.so.1
 
