@@ -4,17 +4,16 @@
 %bcond_with	xcb		# XCB instead of Xlib
 #
 %define		eet_ver	1.4.0
-%define		svn	%{nil}
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-%define	subver	beta2
+%define	subver	beta3
 Version:	1.0.0
 Release:	0.%{subver}.1
 License:	LGPL v2.1
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.%{subver}.tar.bz2
-# Source0-md5:	c67482943701a07b892331de1f097141
+# Source0-md5:	34c13b29f675eaaea4b51b7b3963d7a1
 URL:		http://enlightenment.org/p.php?p=about/libs/ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel
@@ -426,26 +425,26 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING NEWS README
-%attr(755,root,root) %{_libdir}/libecore%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore.so.1
 
 %files con
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_con%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_con%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_con.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_con.so.1
 
 %if 0
 %files config
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ecore_config
-%attr(755,root,root) %{_libdir}/libecore_config%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_config%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_config.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_config.so.1
 %endif
 
 %files directfb
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_directfb%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_directfb%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_directfb.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_directfb.so.1
 
 %if 0
 %files desktop
@@ -456,38 +455,38 @@ rm -rf $RPM_BUILD_ROOT
 
 %files fb
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_fb%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_fb%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_fb.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_fb.so.1
 
 %files file
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_file%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_file%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_file.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_file.so.1
 
 %files imf
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_imf%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_imf%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_imf.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_imf.so.1
 
 %files imf-evas
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_imf_evas%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_imf_evas%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_imf_evas.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_imf_evas.so.1
 
 %files input
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_input%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_input%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_input.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_input.so.1
 
 %files input-evas
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_input_evas%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_input_evas%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_input_evas.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_input_evas.so.1
 
 %files ipc
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_ipc%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_ipc%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_ipc.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_ipc.so.1
 
 %if 0
 %files job
@@ -498,8 +497,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files sdl
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_sdl%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_sdl%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_sdl.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_sdl.so.1
 
 %if 0
 %files txt
@@ -510,8 +509,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files x
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_x%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_x%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_x.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_x.so.1
 
 %files devel
 %defattr(644,root,root,755)
@@ -583,8 +582,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files evas
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libecore_evas%{svn}.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libecore_evas%{svn}.so.1
+%attr(755,root,root) %{_libdir}/libecore_evas.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_evas.so.1
 
 %files evas-devel
 %defattr(644,root,root,755)
