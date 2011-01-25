@@ -245,6 +245,7 @@ Summary(pl.UTF-8):	Plik nagłówkowy biblioteki Ecore Evas
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-directfb-devel = %{version}-%{release}
+Requires:	%{name}-evas = %{version}-%{release}
 Requires:	%{name}-fb-devel = %{version}-%{release}
 Requires:	%{name}-input-devel = %{version}-%{release}
 Requires:	%{name}-input-evas-devel = %{version}-%{release}
