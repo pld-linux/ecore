@@ -12,7 +12,7 @@ License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
 # Source0-md5:	4a8a06045204cb2cc3688760cc87c6f1
-URL:		http://enlightenment.org/p.php?p=about/libs/ecore
+URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
 BuildRequires:	autoconf >= 2.52
