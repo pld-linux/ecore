@@ -293,7 +293,7 @@ Requires:	tslib-devel
 %description fb-devel
 Header file for Ecore FB (frame buffer system functions) library.
 
-%description fb -l pl.UTF-8
+%description fb-devel -l pl.UTF-8
 Plik nagłówkowy biblioteki Ecore FB (funkcji systemowych
 framebuffera).
 
