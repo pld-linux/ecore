@@ -6,12 +6,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.0.0
-Release:	3
+Version:	1.0.1
+Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	4a8a06045204cb2cc3688760cc87c6f1
+# Source0-md5:	545f35b7b850eb9bff64e1d9838e531e
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
@@ -31,7 +31,10 @@ BuildRequires:	pkgconfig >= 1:0.22
 BuildRequires:	tslib-devel
 %if %{with xcb}
 BuildRequires:	libxcb-devel
-BuildRequires:	xcb-util-devel
+BuildRequires:	pixman-devel
+BuildRequires:	xcb-util-image-devel
+BuildRequires:	xcb-util-keysyms-devel
+BuildRequires:	xcb-util-wm-devel
 %else
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXScrnSaver-devel
@@ -40,7 +43,7 @@ BuildRequires:	xorg-lib-libXcursor-devel
 BuildRequires:	xorg-lib-libXdamage-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXfixes-devel
-BuildRequires:	xorg-lib-libXi-devel
+BuildRequires:	xorg-lib-libXi-devel >= 1.3
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXp-devel
 BuildRequires:	xorg-lib-libXrandr-devel
@@ -604,7 +607,10 @@ Requires:	%{name}-input-devel = %{version}-%{release}
 Requires:	%{name}-x = %{version}-%{release}
 %if %{with xcb}
 Requires:	libxcb-devel
-Requires:	xcb-util-devel
+Requires:	pixman-devel
+Requires:	xcb-util-image-devel
+Requires:	xcb-util-keysyms-devel
+Requires:	xcb-util-wm-devel
 %else
 Requires:	xorg-lib-libX11-devel
 Requires:	xorg-lib-libXScrnSaver-devel
@@ -613,7 +619,7 @@ Requires:	xorg-lib-libXcursor-devel
 Requires:	xorg-lib-libXdamage-devel
 Requires:	xorg-lib-libXext-devel
 Requires:	xorg-lib-libXfixes-devel
-Requires:	xorg-lib-libXi-devel
+Requires:	xorg-lib-libXi-devel >= 1.3
 Requires:	xorg-lib-libXinerama-devel
 Requires:	xorg-lib-libXp-devel
 Requires:	xorg-lib-libXrandr-devel
