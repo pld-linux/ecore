@@ -2,28 +2,32 @@
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
 %bcond_with	xcb		# XCB instead of Xlib (highly experimental)
+%bcond_with	cares		# use c-ares (refuses 1.7.5)
 #
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.0.1
-Release:	3
+Version:	1.1.0
+Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	545f35b7b850eb9bff64e1d9838e531e
+# Source0-md5:	8d059cd04cb95ad8c03ebeb0181d85c8
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake >= 1.6
-BuildRequires:	c-ares-devel
+%if %{with cares}
+BuildRequires:	c-ares-devel >= 1.6.1
+BuildConflicts:	c-ares-devel = 1.7.5
+%endif
 BuildRequires:	curl-devel
-BuildRequires:	eina-devel >= 1.0.0
+BuildRequires:	eina-devel >= 1.1.0
 # for disabled config library
 #BuildRequires:	eet-devel >= 1.4.0
 BuildRequires:	evas-devel >= %{version}
-BuildRequires:	gettext-devel >= 0.12.1
+BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gnutls-devel
 BuildRequires:	libtool
@@ -32,9 +36,10 @@ BuildRequires:	tslib-devel
 %if %{with xcb}
 BuildRequires:	libxcb-devel
 BuildRequires:	pixman-devel
+BuildRequires:	xcb-util-devel >= 0.3.8
 BuildRequires:	xcb-util-image-devel
-BuildRequires:	xcb-util-keysyms-devel
-BuildRequires:	xcb-util-wm-devel
+BuildRequires:	xcb-util-keysyms-devel >= 0.3.8
+BuildRequires:	xcb-util-wm-devel >= 0.3.8
 %else
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXScrnSaver-devel
@@ -50,7 +55,7 @@ BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-lib-libXtst-devel
 %endif
-Requires:	eina >= 1.0.0
+Requires:	eina >= 1.1.0
 Obsoletes:	ecore-desktop
 Obsoletes:	ecore-job
 Obsoletes:	ecore-libs
@@ -77,7 +82,7 @@ Summary:	Header files for Ecore library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Ecore
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	eina-devel >= 1.0.0
+Requires:	eina-devel >= 1.1.0
 Requires:	glib2-devel >= 2.0
 
 %description devel
@@ -116,7 +121,7 @@ Summary(pl.UTF-8):	Plik nagłówkowy biblioteki Ecore Con
 Group:		Development/Libraries
 Requires:	%{name}-con = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
-Requires:	c-ares-devel
+%{?with_cares:Requires:	c-ares-devel >= 1.6.1}
 Requires:	curl-devel
 Requires:	gnutls-devel
 
@@ -608,9 +613,10 @@ Requires:	%{name}-x = %{version}-%{release}
 %if %{with xcb}
 Requires:	libxcb-devel
 Requires:	pixman-devel
+Requires:	xcb-util-devel >= 0.3.8
 Requires:	xcb-util-image-devel
-Requires:	xcb-util-keysyms-devel
-Requires:	xcb-util-wm-devel
+Requires:	xcb-util-keysyms-devel >= 0.3.8
+Requires:	xcb-util-wm-devel >= 0.3.8
 %else
 Requires:	xorg-lib-libX11-devel
 Requires:	xorg-lib-libXScrnSaver-devel
@@ -648,6 +654,19 @@ library.
 %description x-static -l pl.UTF-8
 Statyczna biblioteka Ecore X (funkcji do obsługi X Window System).
 
+%package module-xim
+Summary:	Ecore XIM input method module
+Summary(pl.UTF-8):	Ecore - moduł metody wprowadzania znaków XIM
+Group:		X11/Libraries
+Requires:	%{name}-imf = %{version}-%{release}
+Requires:	%{name}-x = %{version}-%{release}
+
+%description module-xim
+Ecore XIM input method module.
+
+%description module-xim -l pl.UTF-8
+Ecore - moduł metody wprowadzania znaków XIM.
+
 %prep
 %setup -q
 
@@ -683,6 +702,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/ecore/immodules/*.la
 
 %find_lang %{name} --all-name
 
@@ -723,6 +744,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING ChangeLog README
 %attr(755,root,root) %{_libdir}/libecore.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libecore.so.1
+%dir %{_libdir}/ecore
+%dir %{_libdir}/ecore/immodules
 
 %files devel
 %defattr(644,root,root,755)
@@ -977,3 +1000,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libecore_x.a
 %endif
+
+%files module-xim
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/ecore/immodules/xim.so
