@@ -1,19 +1,33 @@
+# TODO: drop --disable-ecore-evas-software-8-x11 when fixed (xcb_api only)
 #
 # Conditional build:
 %bcond_without	static_libs	# don't build static library
-%bcond_with	xcb		# XCB instead of Xlib (highly experimental)
-%bcond_with	cares		# use c-ares (refuses 1.7.5)
+%bcond_without	xcb		# force disabling XCB usage
+%bcond_with	xcb_api		# XCB instead of Xlib (highly experimental, no XIM module)
+                                # must be consistent with xcb_api setting in evas!
+%bcond_without	cares		# use c-ares
+%bcond_without	scim		# SCIM module
+%bcond_with	wayland		# Wayland library module (requires xkbcommon, not yet available)
 #
+%if %{without xcb}
+%undefine	xcb_api
+%endif
+%if %{with xcb_api}
+%undefine	with_wayland
+%define		xapi	xcb
+%else
+%define		xapi	xlib
+%endif
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.1.0
-Release:	4
+Version:	1.2.0
+Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	8d059cd04cb95ad8c03ebeb0181d85c8
-Patch0:		%{name}-am.patch
+# Source0-md5:	1c15dbe3696e90acda6b30b3588e68c9
+Patch0:		%{name}-sh.patch
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
@@ -21,20 +35,20 @@ BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake >= 1.6
 %if %{with cares}
 BuildRequires:	c-ares-devel >= 1.6.1
-BuildConflicts:	c-ares-devel = 1.7.5
 %endif
 BuildRequires:	curl-devel
-BuildRequires:	eina-devel >= 1.1.0
+BuildRequires:	eina-devel >= 1.2.0
 # for disabled config library
-#BuildRequires:	eet-devel >= 1.4.0
-BuildRequires:	evas-devel >= %{version}
+#BuildRequires:	eet-devel >= 1.6.0
+BuildRequires:	evas-devel(%{xapi}) >= 1.2.0
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	glib2-devel >= 2.0
-BuildRequires:	gnutls-devel
+BuildRequires:	gnutls-devel >= 2.10.2
 BuildRequires:	libtool
 BuildRequires:	pkgconfig >= 1:0.22
+%{?with_scim:BuildRequires:	scim-devel}
 BuildRequires:	tslib-devel
-%if %{with xcb}
+%if %{with xcb_api}
 BuildRequires:	libxcb-devel
 BuildRequires:	pixman-devel
 BuildRequires:	xcb-util-devel >= 0.3.8
@@ -55,8 +69,13 @@ BuildRequires:	xorg-lib-libXp-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-lib-libXtst-devel
+# xorg-lib-libXgesture-devel
 %endif
-Requires:	eina >= 1.1.0
+%if %{with wayland}
+BuildRequires:	wayland-devel
+BuildRequires:	xkbcommon
+%endif
+Requires:	eina >= 1.2.0
 Obsoletes:	ecore-desktop
 Obsoletes:	ecore-job
 Obsoletes:	ecore-libs
@@ -83,7 +102,7 @@ Summary:	Header files for Ecore library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Ecore
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	eina-devel >= 1.1.0
+Requires:	eina-devel >= 1.2.0
 Requires:	glib2-devel >= 2.0
 
 %description devel
@@ -109,6 +128,7 @@ Summary:	Ecore Con(nection) library
 Summary(pl.UTF-8):	Biblioteka połączeń Ecore Con
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	gnutls >= 2.10.2
 
 %description con
 Ecore Con(nection) Library.
@@ -124,7 +144,7 @@ Requires:	%{name}-con = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 %{?with_cares:Requires:	c-ares-devel >= 1.6.1}
 Requires:	curl-devel
-Requires:	gnutls-devel
+Requires:	gnutls-devel >= 2.10.2
 
 %description con-devel
 Header file for Ecore Con(nection) library.
@@ -149,8 +169,8 @@ Summary:	Ecore Config library
 Summary(pl.UTF-8):	Biblioteka właściwości Ecore Config
 Group:		Libraries
 Requires:	%{name}-ipc = %{version}-%{release}
-Requires:	eet >= 1.4.0
-Requires:	evas >= 1.0.0
+Requires:	eet >= 1.6.0
+Requires:	evas >= 1.2.0
 
 %description config
 Ecore Config library.
@@ -165,8 +185,8 @@ Group:		Development/Libraries
 Requires:	%{name}-config = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-ipc-devel = %{version}-%{release}
-Requires:	eet-devel >= 1.4.0
-Requires:	evas-devel >= 1.0.0
+Requires:	eet-devel >= 1.6.0
+Requires:	evas-devel >= 1.2.0
 
 %description config-devel
 Header file for Ecore Config library.
@@ -237,9 +257,13 @@ Requires:	%{name}-directfb = %{version}-%{release}
 Requires:	%{name}-fb = %{version}-%{release}
 Requires:	%{name}-input = %{version}-%{release}
 Requires:	%{name}-input-evas = %{version}-%{release}
+Requires:	%{name}-ipc = %{version}-%{release}
 Requires:	%{name}-sdl = %{version}-%{release}
+%if %{with wayland}
+Requires:	%{name}-wayland = %{version}-%{release}
+%endif
 Requires:	%{name}-x = %{version}-%{release}
-Requires:	evas >= 1.0.0
+Requires:	evas >= 1.2.0
 
 %description evas
 Ecore Evas library.
@@ -257,9 +281,13 @@ Requires:	%{name}-evas = %{version}-%{release}
 Requires:	%{name}-fb-devel = %{version}-%{release}
 Requires:	%{name}-input-devel = %{version}-%{release}
 Requires:	%{name}-input-evas-devel = %{version}-%{release}
+Requires:	%{name}-ipc-devel = %{version}-%{release}
 Requires:	%{name}-sdl-devel = %{version}-%{release}
+%if %{with wayland}
+Requires:	%{name}-wayland-devel = %{version}-%{release}
+%endif
 Requires:	%{name}-x-devel = %{version}-%{release}
-Requires:	evas-devel >= 1.0.0
+Requires:	evas-devel >= 1.2.0
 
 %description evas-devel
 Header file for Ecore Evas library.
@@ -400,7 +428,7 @@ Summary(pl.UTF-8):	Biblioteka Ecore IMF Evas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-imf = %{version}-%{release}
-Requires:	evas >= 1.0.0
+Requires:	evas >= 1.2.0
 
 %description imf-evas
 Ecore IMF Evas library.
@@ -415,7 +443,7 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-imf-devel = %{version}-%{release}
 Requires:	%{name}-imf-evas = %{version}-%{release}
-Requires:	evas-devel >= 1.0.0
+Requires:	evas-devel >= 1.2.0
 
 %description imf-evas-devel
 Header file for Ecore IMF Evas library.
@@ -478,7 +506,7 @@ Summary(pl.UTF-8):	Biblioteka rozszerzenia Ecore Input Evas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-input = %{version}-%{release}
-Requires:	evas >= 1.0.0
+Requires:	evas >= 1.2.0
 
 %description input-evas
 Ecore Input Evas extension library.
@@ -492,7 +520,7 @@ Summary(pl.UTF-8):	Plik nagłówkowy biblioteki rozszerzenia Ecore Input Evas
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-input-devel = %{version}-%{release}
-Requires:	evas-devel >= 1.0.0
+Requires:	evas-devel >= 1.2.0
 
 %description input-evas-devel
 Header file for Ecore Input Evas extension library.
@@ -529,7 +557,7 @@ Biblioteka Ecore IPC (funkcji komunikacji międzyprocesowej).
 Summary:	Header file for Ecore IPC library
 Summary(pl.UTF-8):	Plik nagłówkowy biblioteki Ecore IPC
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-con-devel = %{version}-%{release}
 Requires:	%{name}-ipc = %{version}-%{release}
 
 %description ipc-devel
@@ -558,6 +586,7 @@ Summary(pl.UTF-8):	Biblioteka Ecore SDL
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-input = %{version}-%{release}
+Requires:	SDL >= 1.2.0
 
 %description sdl
 Ecore SDL library.
@@ -590,6 +619,46 @@ Static Ecore SDL library.
 
 %description sdl-static -l pl.UTF-8
 Statyczna biblioteka Ecore SDL.
+
+%package wayland
+Summary:	Ecore Wayland library
+Summary(pl.UTF-8):	Biblioteka Ecore Wayland
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-input = %{version}-%{release}
+
+%description wayland
+Ecore Wayland library.
+
+%description wayland -l pl.UTF-8
+Biblioteka Ecore Wayland.
+
+%package wayland-devel
+Summary:	Header file for Ecore Wayland library
+Summary(pl.UTF-8):	Plik nagłówkowy biblioteki Ecore Wayland
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-input-devel = %{version}-%{release}
+Requires:	wayland-devel
+Requires:	xkbcommon
+
+%description wayland-devel
+Header file for Ecore Wayland library.
+
+%description wayland-devel -l pl.UTF-8
+Plik nagłówkowy biblioteki Ecore Wayland.
+
+%package wayland-static
+Summary:	Static Ecore Wayland library
+Summary(pl.UTF-8):	Statyczna biblioteka Ecore Wayland
+Group:		Development/Libraries
+Requires:	%{name}-wayland-devel = %{version}-%{release}
+
+%description wayland-static
+Static Ecore Wayland library.
+
+%description wayland-static -l pl.UTF-8
+Statyczna biblioteka Ecore Wayland.
 
 %package x
 Summary:	Ecore X (functions for dealing with the X Window System) library
@@ -655,11 +724,26 @@ library.
 %description x-static -l pl.UTF-8
 Statyczna biblioteka Ecore X (funkcji do obsługi X Window System).
 
+%package module-scim
+Summary:	Ecore SCIM input method module
+Summary(pl.UTF-8):	Ecore - moduł metody wprowadzania znaków SCIM
+Group:		X11/Libraries
+Requires:	%{name}-imf = %{version}-%{release}
+Requires:	%{name}-input = %{version}-%{release}
+Requires:	%{name}-x = %{version}-%{release}
+
+%description module-scim
+Ecore SCIM input method module.
+
+%description module-scim -l pl.UTF-8
+Ecore - moduł metody wprowadzania znaków SCIM.
+
 %package module-xim
 Summary:	Ecore XIM input method module
 Summary(pl.UTF-8):	Ecore - moduł metody wprowadzania znaków XIM
 Group:		X11/Libraries
 Requires:	%{name}-imf = %{version}-%{release}
+Requires:	%{name}-input = %{version}-%{release}
 Requires:	%{name}-x = %{version}-%{release}
 
 %description module-xim
@@ -681,6 +765,7 @@ Ecore - moduł metody wprowadzania znaków XIM.
 %configure \
 	--disable-silent-rules \
 	%{!?with_static_libs:--disable-static} \
+	--disable-ecore-evas-software-8-x11 \
 	--enable-ecore-con	\
 	--enable-ecore-directfb	\
 	--enable-ecore-fb	\
@@ -688,13 +773,12 @@ Ecore - moduł metody wprowadzania znaków XIM.
 	--enable-ecore-ipc	\
 	--enable-ecore-sdl	\
 	--enable-ecore-x	\
-	%{?with_xcb:--enable-ecore-x-xcb}	\
+	%{?with_xcb_api:--enable-ecore-x-xcb}	\
 	--enable-ecore-evas	\
 	--enable-ecore-evas-fb	\
 	--enable-cares		\
 	--enable-curl		\
 	--enable-inotify	\
-	--enable-openssl	\
 	--enable-poll
 
 %{__make}
@@ -743,7 +827,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS COPYING ChangeLog README
+%doc AUTHORS COPYING ChangeLog NEWS README
 %attr(755,root,root) %{_libdir}/libecore.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libecore.so.1
 %dir %{_libdir}/ecore
@@ -983,6 +1067,26 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libecore_sdl.a
 %endif
 
+%if %{with wayland}
+%files wayland
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_wayland.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libecore_wayland.so.1
+
+%files wayland-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libecore_wayland.so
+%{_libdir}/libecore_wayland.la
+%{_includedir}/ecore-1/Ecore_Wayland.h
+%{_pkgconfigdir}/ecore-wayland.pc
+
+%if %{with static_libs}
+%files wayland-static
+%defattr(644,root,root,755)
+%{_libdir}/libecore_wayland.a
+%endif
+%endif
+
 %files x
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libecore_x.so.*.*.*
@@ -1003,6 +1107,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libecore_x.a
 %endif
 
+%if %{with scim}
+%files module-scim
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/ecore/immodules/scim.so
+%endif
+
+%if %{without xcb_api}
 %files module-xim
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/ecore/immodules/xim.so
+%endif
