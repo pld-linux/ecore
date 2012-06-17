@@ -21,13 +21,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.2.0
+Version:	1.2.1
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	1c15dbe3696e90acda6b30b3588e68c9
-Patch0:		%{name}-sh.patch
+# Source0-md5:	1c5ad8db97f5cc902959cc52b06e3e71
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
@@ -754,7 +753,6 @@ Ecore - moduł metody wprowadzania znaków XIM.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
