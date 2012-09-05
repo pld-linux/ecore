@@ -40,7 +40,7 @@ BuildRequires:	curl-devel
 BuildRequires:	eina-devel >= 1.7.0
 # for disabled config library
 #BuildRequires:	eet-devel >= 1.7.0
-BuildRequires:	evas-devel(%{xapi}) >= 1.2.0
+BuildRequires:	evas-devel(%{xapi}) >= 1.7.0
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gnutls-devel >= 2.10.2
@@ -171,7 +171,7 @@ Summary(pl.UTF-8):	Biblioteka właściwości Ecore Config
 Group:		Libraries
 Requires:	%{name}-ipc = %{version}-%{release}
 Requires:	eet >= 1.7.0
-Requires:	evas >= 1.2.0
+Requires:	evas >= 1.7.0
 
 %description config
 Ecore Config library.
@@ -187,7 +187,7 @@ Requires:	%{name}-config = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-ipc-devel = %{version}-%{release}
 Requires:	eet-devel >= 1.7.0
-Requires:	evas-devel >= 1.2.0
+Requires:	evas-devel >= 1.7.0
 
 %description config-devel
 Header file for Ecore Config library.
@@ -264,7 +264,7 @@ Requires:	%{name}-sdl = %{version}-%{release}
 Requires:	%{name}-wayland = %{version}-%{release}
 %endif
 Requires:	%{name}-x = %{version}-%{release}
-Requires:	evas >= 1.2.0
+Requires:	evas >= 1.7.0
 
 %description evas
 Ecore Evas library.
@@ -288,7 +288,7 @@ Requires:	%{name}-sdl-devel = %{version}-%{release}
 Requires:	%{name}-wayland-devel = %{version}-%{release}
 %endif
 Requires:	%{name}-x-devel = %{version}-%{release}
-Requires:	evas-devel >= 1.2.0
+Requires:	evas-devel >= 1.7.0
 
 %description evas-devel
 Header file for Ecore Evas library.
@@ -429,7 +429,7 @@ Summary(pl.UTF-8):	Biblioteka Ecore IMF Evas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-imf = %{version}-%{release}
-Requires:	evas >= 1.2.0
+Requires:	evas >= 1.7.0
 
 %description imf-evas
 Ecore IMF Evas library.
@@ -444,7 +444,7 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-imf-devel = %{version}-%{release}
 Requires:	%{name}-imf-evas = %{version}-%{release}
-Requires:	evas-devel >= 1.2.0
+Requires:	evas-devel >= 1.7.0
 
 %description imf-evas-devel
 Header file for Ecore IMF Evas library.
@@ -507,7 +507,7 @@ Summary(pl.UTF-8):	Biblioteka rozszerzenia Ecore Input Evas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-input = %{version}-%{release}
-Requires:	evas >= 1.2.0
+Requires:	evas >= 1.7.0
 
 %description input-evas
 Ecore Input Evas extension library.
@@ -521,7 +521,7 @@ Summary(pl.UTF-8):	Plik nagłówkowy biblioteki rozszerzenia Ecore Input Evas
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-input-devel = %{version}-%{release}
-Requires:	evas-devel >= 1.2.0
+Requires:	evas-devel >= 1.7.0
 
 %description input-evas-devel
 Header file for Ecore Input Evas extension library.
