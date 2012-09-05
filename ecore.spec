@@ -641,7 +641,6 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-input-devel = %{version}-%{release}
 Requires:	wayland-devel
-Requires:	xkbcommon
 
 %description wayland-devel
 Header file for Ecore Wayland library.
