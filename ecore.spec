@@ -6,8 +6,9 @@
 %bcond_with	xcb_api		# XCB instead of Xlib (highly experimental, no XIM module)
                                 # must be consistent with xcb_api setting in evas!
 %bcond_without	cares		# use c-ares
+%bcond_without	ibus		# IBus module
 %bcond_without	scim		# SCIM module
-%bcond_with	wayland		# Wayland library module (requires xkbcommon, not yet available)
+%bcond_without	wayland		# Wayland library module
 #
 %if %{without xcb}
 %undefine	xcb_api
@@ -21,12 +22,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.2.1
+Version:	1.7.0
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	1c5ad8db97f5cc902959cc52b06e3e71
+# Source0-md5:	9072b65366fe42612812001075e29789
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
@@ -36,13 +37,14 @@ BuildRequires:	automake >= 1.6
 BuildRequires:	c-ares-devel >= 1.6.1
 %endif
 BuildRequires:	curl-devel
-BuildRequires:	eina-devel >= 1.2.0
+BuildRequires:	eina-devel >= 1.7.0
 # for disabled config library
-#BuildRequires:	eet-devel >= 1.6.0
+#BuildRequires:	eet-devel >= 1.7.0
 BuildRequires:	evas-devel(%{xapi}) >= 1.2.0
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gnutls-devel >= 2.10.2
+%{?with_ibus:BuildRequires:	ibus-devel >= 1.4}
 BuildRequires:	libtool
 BuildRequires:	pkgconfig >= 1:0.22
 %{?with_scim:BuildRequires:	scim-devel}
@@ -72,9 +74,9 @@ BuildRequires:	xorg-lib-libXtst-devel
 %endif
 %if %{with wayland}
 BuildRequires:	wayland-devel
-BuildRequires:	xkbcommon
+BuildRequires:	xorg-lib-libxkbcommon-devel
 %endif
-Requires:	eina >= 1.2.0
+Requires:	eina >= 1.7.0
 Obsoletes:	ecore-desktop
 Obsoletes:	ecore-job
 Obsoletes:	ecore-libs
@@ -101,7 +103,7 @@ Summary:	Header files for Ecore library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Ecore
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	eina-devel >= 1.2.0
+Requires:	eina-devel >= 1.7.0
 Requires:	glib2-devel >= 2.0
 
 %description devel
@@ -168,7 +170,7 @@ Summary:	Ecore Config library
 Summary(pl.UTF-8):	Biblioteka właściwości Ecore Config
 Group:		Libraries
 Requires:	%{name}-ipc = %{version}-%{release}
-Requires:	eet >= 1.6.0
+Requires:	eet >= 1.7.0
 Requires:	evas >= 1.2.0
 
 %description config
@@ -184,7 +186,7 @@ Group:		Development/Libraries
 Requires:	%{name}-config = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-ipc-devel = %{version}-%{release}
-Requires:	eet-devel >= 1.6.0
+Requires:	eet-devel >= 1.7.0
 Requires:	evas-devel >= 1.2.0
 
 %description config-devel
@@ -723,6 +725,21 @@ library.
 %description x-static -l pl.UTF-8
 Statyczna biblioteka Ecore X (funkcji do obsługi X Window System).
 
+%package module-ibus
+Summary:	Ecore IBus input method module
+Summary(pl.UTF-8):	Ecore - moduł metody wprowadzania znaków IBus
+Group:		X11/Libraries
+Requires:	%{name}-imf = %{version}-%{release}
+Requires:	%{name}-input = %{version}-%{release}
+Requires:	%{name}-x = %{version}-%{release}
+Requires:	ibus >= 1.4
+
+%description module-ibus
+Ecore IBus input method module.
+
+%description module-ibus -l pl.UTF-8
+Ecore - moduł metody wprowadzania znaków IBus.
+
 %package module-scim
 Summary:	Ecore SCIM input method module
 Summary(pl.UTF-8):	Ecore - moduł metody wprowadzania znaków SCIM
@@ -730,6 +747,7 @@ Group:		X11/Libraries
 Requires:	%{name}-imf = %{version}-%{release}
 Requires:	%{name}-input = %{version}-%{release}
 Requires:	%{name}-x = %{version}-%{release}
+Requires:	scim
 
 %description module-scim
 Ecore SCIM input method module.
@@ -1103,6 +1121,12 @@ rm -rf $RPM_BUILD_ROOT
 %files x-static
 %defattr(644,root,root,755)
 %{_libdir}/libecore_x.a
+%endif
+
+%if %{with ibus}
+%files module-ibus
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/ecore/immodules/ibus.so
 %endif
 
 %if %{with scim}
