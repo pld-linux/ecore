@@ -22,12 +22,13 @@
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.7.0
-Release:	2
+Version:	1.7.1
+Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	9072b65366fe42612812001075e29789
+# Source0-md5:	94fd264e478323a1100b3cfff833d28d
+Patch0:		%{name}-wayland.patch
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
@@ -73,7 +74,7 @@ BuildRequires:	xorg-lib-libXtst-devel
 # xorg-lib-libXgesture-devel
 %endif
 %if %{with wayland}
-BuildRequires:	wayland-devel
+BuildRequires:	wayland-devel >= 1.0.0
 BuildRequires:	xorg-lib-libxkbcommon-devel
 %endif
 Requires:	eina >= 1.7.0
@@ -627,6 +628,7 @@ Summary(pl.UTF-8):	Biblioteka Ecore Wayland
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-input = %{version}-%{release}
+Requires:	wayland >= 1.0.0
 
 %description wayland
 Ecore Wayland library.
@@ -640,7 +642,7 @@ Summary(pl.UTF-8):	Plik nagłówkowy biblioteki Ecore Wayland
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-input-devel = %{version}-%{release}
-Requires:	wayland-devel
+Requires:	wayland-devel >= 1.0.0
 
 %description wayland-devel
 Header file for Ecore Wayland library.
@@ -770,6 +772,7 @@ Ecore - moduł metody wprowadzania znaków XIM.
 
 %prep
 %setup -q
+%patch0 -p3
 
 %build
 %{__libtoolize}
