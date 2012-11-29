@@ -22,12 +22,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.7.1
-Release:	2
+Version:	1.7.2
+Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	94fd264e478323a1100b3cfff833d28d
+# Source0-md5:	bcd3d4be2dfa597b54e75aa1dd91b054
 Patch0:		%{name}-wayland.patch
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
