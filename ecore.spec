@@ -22,13 +22,12 @@
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.7.2
+Version:	1.7.3
 Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	bcd3d4be2dfa597b54e75aa1dd91b054
-Patch0:		%{name}-wayland.patch
+# Source0-md5:	40f47d3beb02fd762bfd9f6fcf01e6dd
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
@@ -74,6 +73,8 @@ BuildRequires:	xorg-lib-libXtst-devel
 # xorg-lib-libXgesture-devel
 %endif
 %if %{with wayland}
+BuildRequires:	Mesa-libEGL-devel >= 7.10
+BuildRequires:	Mesa-libwayland-egl-devel
 BuildRequires:	wayland-devel >= 1.0.0
 BuildRequires:	xorg-lib-libxkbcommon-devel
 %endif
@@ -263,6 +264,7 @@ Requires:	%{name}-ipc = %{version}-%{release}
 Requires:	%{name}-sdl = %{version}-%{release}
 %if %{with wayland}
 Requires:	%{name}-wayland = %{version}-%{release}
+Requires:	Mesa-libEGL >= 7.10
 %endif
 Requires:	%{name}-x = %{version}-%{release}
 Requires:	evas >= 1.7.0
@@ -287,6 +289,8 @@ Requires:	%{name}-ipc-devel = %{version}-%{release}
 Requires:	%{name}-sdl-devel = %{version}-%{release}
 %if %{with wayland}
 Requires:	%{name}-wayland-devel = %{version}-%{release}
+Requires:	Mesa-libEGL-devel >= 7.10
+Requires:	Mesa-libwayland-egl-devel
 %endif
 Requires:	%{name}-x-devel = %{version}-%{release}
 Requires:	evas-devel >= 1.7.0
@@ -772,7 +776,6 @@ Ecore - moduł metody wprowadzania znaków XIM.
 
 %prep
 %setup -q
-%patch0 -p3
 
 %build
 %{__libtoolize}
