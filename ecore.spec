@@ -37,10 +37,10 @@ BuildRequires:	automake >= 1.6
 BuildRequires:	c-ares-devel >= 1.6.1
 %endif
 BuildRequires:	curl-devel
-BuildRequires:	eina-devel >= 1.7.0
+BuildRequires:	eina-devel >= 1.7.5
 # for disabled config library
-#BuildRequires:	eet-devel >= 1.7.0
-BuildRequires:	evas-devel(%{xapi}) >= 1.7.0
+#BuildRequires:	eet-devel >= 1.7.5
+BuildRequires:	evas-devel(%{xapi}) >= 1.7.5
 BuildRequires:	gettext-devel >= 0.17
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gnutls-devel >= 2.10.2
@@ -78,7 +78,7 @@ BuildRequires:	Mesa-libwayland-egl-devel
 BuildRequires:	wayland-devel >= 1.0.0
 BuildRequires:	xorg-lib-libxkbcommon-devel
 %endif
-Requires:	eina >= 1.7.0
+Requires:	eina >= 1.7.5
 Obsoletes:	ecore-desktop
 Obsoletes:	ecore-job
 Obsoletes:	ecore-libs
@@ -105,7 +105,7 @@ Summary:	Header files for Ecore library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Ecore
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	eina-devel >= 1.7.0
+Requires:	eina-devel >= 1.7.5
 Requires:	glib2-devel >= 2.0
 
 %description devel
@@ -172,8 +172,8 @@ Summary:	Ecore Config library
 Summary(pl.UTF-8):	Biblioteka właściwości Ecore Config
 Group:		Libraries
 Requires:	%{name}-ipc = %{version}-%{release}
-Requires:	eet >= 1.7.0
-Requires:	evas >= 1.7.0
+Requires:	eet >= 1.7.5
+Requires:	evas >= 1.7.5
 
 %description config
 Ecore Config library.
@@ -188,8 +188,8 @@ Group:		Development/Libraries
 Requires:	%{name}-config = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-ipc-devel = %{version}-%{release}
-Requires:	eet-devel >= 1.7.0
-Requires:	evas-devel >= 1.7.0
+Requires:	eet-devel >= 1.7.5
+Requires:	evas-devel >= 1.7.5
 
 %description config-devel
 Header file for Ecore Config library.
@@ -267,7 +267,7 @@ Requires:	%{name}-wayland = %{version}-%{release}
 Requires:	Mesa-libEGL >= 7.10
 %endif
 Requires:	%{name}-x = %{version}-%{release}
-Requires:	evas >= 1.7.0
+Requires:	evas >= 1.7.5
 
 %description evas
 Ecore Evas library.
@@ -293,7 +293,7 @@ Requires:	Mesa-libEGL-devel >= 7.10
 Requires:	Mesa-libwayland-egl-devel
 %endif
 Requires:	%{name}-x-devel = %{version}-%{release}
-Requires:	evas-devel >= 1.7.0
+Requires:	evas-devel >= 1.7.5
 
 %description evas-devel
 Header file for Ecore Evas library.
@@ -434,7 +434,7 @@ Summary(pl.UTF-8):	Biblioteka Ecore IMF Evas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-imf = %{version}-%{release}
-Requires:	evas >= 1.7.0
+Requires:	evas >= 1.7.5
 
 %description imf-evas
 Ecore IMF Evas library.
@@ -449,7 +449,7 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-imf-devel = %{version}-%{release}
 Requires:	%{name}-imf-evas = %{version}-%{release}
-Requires:	evas-devel >= 1.7.0
+Requires:	evas-devel >= 1.7.5
 
 %description imf-evas-devel
 Header file for Ecore IMF Evas library.
@@ -512,7 +512,7 @@ Summary(pl.UTF-8):	Biblioteka rozszerzenia Ecore Input Evas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-input = %{version}-%{release}
-Requires:	evas >= 1.7.0
+Requires:	evas >= 1.7.5
 
 %description input-evas
 Ecore Input Evas extension library.
@@ -526,7 +526,7 @@ Summary(pl.UTF-8):	Plik nagłówkowy biblioteki rozszerzenia Ecore Input Evas
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-input-devel = %{version}-%{release}
-Requires:	evas-devel >= 1.7.0
+Requires:	evas-devel >= 1.7.5
 
 %description input-evas-devel
 Header file for Ecore Input Evas extension library.
