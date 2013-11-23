@@ -19,18 +19,18 @@
 %else
 %define		xapi	xlib
 %endif
-%define		eina_ver	1.7.7
-%define		eet_ver		1.7.7
-%define		evas_ver	1.7.7
+%define		eina_ver	1.7.9
+%define		eet_ver		1.7.9
+%define		evas_ver	1.7.9
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.7.7
-Release:	4
+Version:	1.7.9
+Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	083bc8f50c06157ae1836a9c54100ff6
+# Source0-md5:	71423c99d6631393d8307c562c1163ab
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
