@@ -1,3 +1,4 @@
+# NOTE: for versions >= 1.8 see efl.spec
 # TODO: drop --disable-ecore-evas-software-8-x11 when fixed (xcb_api only)
 #
 # Conditional build:
