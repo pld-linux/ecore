@@ -20,18 +20,18 @@
 %else
 %define		xapi	xlib
 %endif
-%define		eina_ver	1.7.9
-%define		eet_ver		1.7.9
-%define		evas_ver	1.7.9
+%define		eina_ver	1.7.10
+%define		eet_ver		1.7.10
+%define		evas_ver	1.7.10
 Summary:	Enlightened Core X interface library
 Summary(pl.UTF-8):	Biblioteka interfejsu X Enlightened Core
 Name:		ecore
-Version:	1.7.9
-Release:	6
+Version:	1.7.10
+Release:	1
 License:	BSD
 Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
-# Source0-md5:	71423c99d6631393d8307c562c1163ab
+# Source0-md5:	eada670139dc1984eda5a24eb4781f43
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
 BuildRequires:	DirectFB-devel >= 0.9.16
 BuildRequires:	SDL-devel >= 1.2.0
@@ -797,6 +797,7 @@ Ecore - moduł metody wprowadzania znaków XIM.
 	--enable-ecore-file	\
 	--enable-ecore-ipc	\
 	--enable-ecore-sdl	\
+	%{!?with_wayland:--disable-ecore-wayland} \
 	--enable-ecore-x	\
 	%{?with_xcb_api:--enable-ecore-x-xcb}	\
 	--enable-ecore-evas	\
