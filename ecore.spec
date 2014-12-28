@@ -45,7 +45,7 @@ BuildRequires:	eina-devel >= %{eina_ver}
 # for disabled config library
 #BuildRequires:	eet-devel >= %{eet_ver}
 BuildRequires:	evas-devel(%{xapi}) >= %{evas_ver}
-BuildRequires:	gettext-devel >= 0.17
+BuildRequires:	gettext-tools >= 0.17
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gnutls-devel >= 2.10.2
 %{?with_ibus:BuildRequires:	ibus-devel >= 1.4}
