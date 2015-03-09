@@ -7,6 +7,7 @@
 %bcond_with	xcb_api		# XCB instead of Xlib (highly experimental, no XIM module)
                                 # must be consistent with xcb_api setting in evas!
 %bcond_without	cares		# use c-ares
+%bcond_without	directfb	# DirectFB engine
 %bcond_without	ibus		# IBus module
 %bcond_without	scim		# SCIM module
 %bcond_without	wayland		# Wayland library module
@@ -33,7 +34,7 @@ Group:		X11/Libraries
 Source0:	http://download.enlightenment.org/releases/%{name}-%{version}.tar.bz2
 # Source0-md5:	eada670139dc1984eda5a24eb4781f43
 URL:		http://trac.enlightenment.org/e/wiki/Ecore
-BuildRequires:	DirectFB-devel >= 0.9.16
+%{?with_directfb:BuildRequires:	DirectFB-devel >= 0.9.16}
 BuildRequires:	SDL-devel >= 1.2.0
 BuildRequires:	autoconf >= 2.52
 BuildRequires:	automake >= 1.6
@@ -260,7 +261,7 @@ Summary:	Ecore Evas library
 Summary(pl.UTF-8):	Biblioteka Ecore Evas
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-directfb = %{version}-%{release}
+%{?with_directfb:Requires:	%{name}-directfb = %{version}-%{release}}
 Requires:	%{name}-fb = %{version}-%{release}
 Requires:	%{name}-input = %{version}-%{release}
 Requires:	%{name}-input-evas = %{version}-%{release}
@@ -284,7 +285,7 @@ Summary:	Header file for Ecore Evas library
 Summary(pl.UTF-8):	Plik nagłówkowy biblioteki Ecore Evas
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-directfb-devel = %{version}-%{release}
+%{?with_directfb:Requires:	%{name}-directfb-devel = %{version}-%{release}}
 Requires:	%{name}-evas = %{version}-%{release}
 Requires:	%{name}-fb-devel = %{version}-%{release}
 Requires:	%{name}-input-devel = %{version}-%{release}
@@ -792,7 +793,7 @@ Ecore - moduł metody wprowadzania znaków XIM.
 	%{!?with_static_libs:--disable-static} \
 	--disable-ecore-evas-software-8-x11 \
 	--enable-ecore-con	\
-	--enable-ecore-directfb	\
+	--%{?with_directfb:en}%{!?with_directfb:en}able-ecore-directfb	\
 	--enable-ecore-fb	\
 	--enable-ecore-file	\
 	--enable-ecore-ipc	\
@@ -913,6 +914,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %endif
 
+%if %{with directfb}
 %files directfb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libecore_directfb.so.*.*.*
@@ -929,6 +931,7 @@ rm -rf $RPM_BUILD_ROOT
 %files directfb-static
 %defattr(644,root,root,755)
 %{_libdir}/libecore_directfb.a
+%endif
 %endif
 
 %files evas
