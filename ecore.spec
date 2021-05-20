@@ -78,9 +78,10 @@ BuildRequires:	xorg-lib-libXtst-devel
 # xorg-lib-libXgesture-devel
 %endif
 %if %{with wayland}
-BuildRequires:	Mesa-libEGL-devel >= 7.10
-BuildRequires:	Mesa-libwayland-egl-devel
+BuildRequires:	EGL-devel
+BuildRequires:	pkgconfig(egl) >= 7.10
 BuildRequires:	wayland-devel >= 1.0.0
+BuildRequires:	wayland-egl-devel
 BuildRequires:	xorg-lib-libxkbcommon-devel
 %endif
 Requires:	eina >= %{eina_ver}
@@ -269,7 +270,6 @@ Requires:	%{name}-ipc = %{version}-%{release}
 Requires:	%{name}-sdl = %{version}-%{release}
 %if %{with wayland}
 Requires:	%{name}-wayland = %{version}-%{release}
-Requires:	Mesa-libEGL >= 7.10
 %endif
 Requires:	%{name}-x = %{version}-%{release}
 Requires:	evas >= %{evas_ver}
@@ -294,8 +294,9 @@ Requires:	%{name}-ipc-devel = %{version}-%{release}
 Requires:	%{name}-sdl-devel = %{version}-%{release}
 %if %{with wayland}
 Requires:	%{name}-wayland-devel = %{version}-%{release}
-Requires:	Mesa-libEGL-devel >= 7.10
-Requires:	Mesa-libwayland-egl-devel
+Requires:	EGL-devel
+Requires:	pkgconfig(egl) >= 7.10
+Requires:	wayland-egl-devel
 %endif
 Requires:	%{name}-x-devel = %{version}-%{release}
 Requires:	evas-devel >= %{evas_ver}
