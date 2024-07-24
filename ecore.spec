@@ -85,10 +85,10 @@ BuildRequires:	wayland-egl-devel
 BuildRequires:	xorg-lib-libxkbcommon-devel
 %endif
 Requires:	eina >= %{eina_ver}
-Obsoletes:	ecore-desktop
-Obsoletes:	ecore-job
-Obsoletes:	ecore-libs
-Obsoletes:	ecore-txt
+Obsoletes:	ecore-desktop < 1
+Obsoletes:	ecore-job < 1
+Obsoletes:	ecore-libs < 0.9.9.036-2
+Obsoletes:	ecore-txt < 1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %undefine	__cxx
